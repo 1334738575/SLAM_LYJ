@@ -1,0 +1,5 @@
+add_executable(${PROJECT_NAME} example1.cpp)
+# file(COPY ${CMAKE_BINARY_DIR}/src/Release/SLAM_LYJ.dll DESTINATION ${CMAKE_BINARY_DIR}/example/Release)
+target_link_libraries(${PROJECT_NAME} SLAM_LYJ)
+# target_link_libraries(${PROJECT_NAME} SLAM_LYJ ${OpenCV_LIBS} Ceres::ceres ${VULKAN_LIBRARIES} ${GLFW_LIBRARIES} ${Boost_LIBRARIES} glm::glm)
+set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER example)
