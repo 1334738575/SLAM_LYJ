@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="file://E:/SLAM_LYJ/config/VisualStudioCodeSnippets">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>lyjfor</Title>
+			<Shortcut>lyjfor</Shortcut>
+			<Description>for循环的代码片段</Description>
+			<Author>lyj</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>descriptor</ID>
+					<ToolTip>内部对象修饰</ToolTip>
+					<Default>descriptor</Default>
+				</Literal>
+				<Literal>
+					<ID>element</ID>
+					<ToolTip>内部对象</ToolTip>
+					<Default>element</Default>
+				</Literal>
+				<Literal>
+					<ID>set</ID>
+					<ToolTip>循环对象集合</ToolTip>
+					<Default>set</Default>
+				</Literal>
+				<Literal>
+					<ID>code</ID>
+					<ToolTip>循环代码</ToolTip>
+					<Default>code</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp"><![CDATA[for( $descriptor$ $element$ : $set$ )	{
+					$code$
+				}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

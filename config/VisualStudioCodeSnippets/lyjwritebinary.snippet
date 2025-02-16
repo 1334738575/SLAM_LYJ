@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="file://E:/SLAM_LYJ/config/VisualStudioCodeSnippets">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>lyjwritebinary</Title>
+			<Shortcut>lyjwritebinary</Shortcut>
+			<Description>写入二进制文件</Description>
+			<Author>lyj</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>dataptr</ID>
+					<ToolTip>写入数据的地址</ToolTip>
+					<Default>dataptr</Default>
+				</Literal>
+				<Literal>
+					<ID>type</ID>
+					<ToolTip>写入数据单位大小</ToolTip>
+					<Default>char</Default>
+				</Literal>
+				<Literal>
+					<ID>count</ID>
+					<ToolTip>写入数据数（相对char）</ToolTip>
+					<Default>count</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp">
+				<![CDATA[void write_binary(std::ofstream& os){
+					os.write(reinterpret_cast<const char*>($dataptr$), sizeof($type$) * $count$);
+				}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
