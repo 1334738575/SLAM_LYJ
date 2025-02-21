@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="file://E:/SLAM_LYJ/config/VisualStudioCodeSnippets">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>lyjheaderfille</Title>
+			<Shortcut>lyjheaderfille</Shortcut>
+			<Description>头文件防止多次定义宏</Description>
+			<Author>lyj</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>macro</ID>
+					<ToolTip>头文件宏</ToolTip>
+					<Default>macro</Default>
+				</Literal>
+				<Literal>
+					<ID>content</ID>
+					<ToolTip>内容</ToolTip>
+					<Default>content</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp">
+				<![CDATA[#ifndef $macro$_H
+				#define $macro$_H
+					$content$
+				#endif //$macro$_H]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

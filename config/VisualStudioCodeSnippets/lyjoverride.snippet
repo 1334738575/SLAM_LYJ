@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="file://E:/SLAM_LYJ/config/VisualStudioCodeSnippets">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>lyjoverride</Title>
+			<Shortcut>lyjoverride</Shortcut>
+			<Description>函数重写</Description>
+			<Author>lyj</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>result</ID>
+					<ToolTip>返回数据类型</ToolTip>
+					<Default>void</Default>
+				</Literal>
+				<Literal>
+					<ID>funcName</ID>
+					<ToolTip>函数名</ToolTip>
+					<Default>funcName</Default>
+				</Literal>
+				<Literal>
+					<ID>parameters</ID>
+					<ToolTip>参数</ToolTip>
+					<Default>parameters</Default>
+				</Literal>
+				<Literal>
+					<ID>content</ID>
+					<ToolTip>函数主体</ToolTip>
+					<Default>/*code*/</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp">
+				<![CDATA[//override
+					$result$ $funcName$($parameters$){
+					$content$
+				}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

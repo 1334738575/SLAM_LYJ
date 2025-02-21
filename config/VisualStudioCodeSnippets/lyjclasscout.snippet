@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="file://E:/SLAM_LYJ/config/VisualStudioCodeSnippets">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>lyjclasscout</Title>
+			<Shortcut>lyjclasscout</Shortcut>
+			<Description>类cout输出函数定义</Description>
+			<Author>lyj</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>classtype</ID>
+					<ToolTip>类名</ToolTip>
+					<Default>classtype</Default>
+				</Literal>
+				<Literal>
+					<ID>content</ID>
+					<ToolTip>内容</ToolTip>
+					<Default>lyjcout</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp">
+				<![CDATA[friend std::ostream& operator<< (std::ostream& os, const $classtype$& cls){
+					std::cout<< $content$ << std::endl;
+					return os;
+				}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
