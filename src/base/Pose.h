@@ -2,6 +2,7 @@
 #define SLAM_LYJ_POSE_H
 
 #include "Base.h"
+#include "common/CommonAlgorithm.h"
 
 
 NSP_SLAM_LYJ_BEGIN
@@ -20,6 +21,16 @@ public:
     Pose3D(const Matrix3x4d& _T)
         :R(_T.block(0, 0, 3, 3)), t(_T.block(0, 3, 3, 1))
     {}
+    Pose3D(const Eigen::Vector3d& _c1, const Eigen::Vector3d& _n1,
+        const Eigen::Vector3d& _c2, const Eigen::Vector3d& _n2)
+    {
+		Eigen::Vector3d axis = _n1.cross(_n2);
+		double angle = std::acos(_n1.dot(_n2));
+        Eigen::Matrix3d R = SLAM_LYJ_MATH::Rodrigues2RotMatrix(axis, angle);
+		Eigen::Vector3d t = _c2 - R * _c1;
+		this->setR(R);
+		this->sett(t);
+    }
     ~Pose3D(){}
 
     void write_binary(std::ofstream& os) {

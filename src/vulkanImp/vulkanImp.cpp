@@ -3,6 +3,11 @@
 
 NSP_SLAM_LYJ_BEGIN
 
+//static std::string shaderPath = "D:/SLAM_LYJ/src/vulkanImp/shader/";
+//static std::string imagePath = "D:/SLAM_LYJ/other/";
+static std::string shaderPath = LYJOPT->sysHomePath + "src/vulkanImp/shader/";
+static std::string imagePath = LYJOPT->sysHomePath + "other/";
+
 
 static uint32_t getMemoryTypeIndex(uint32_t _typeBits, VkMemoryPropertyFlags _properties, VkPhysicalDeviceMemoryProperties& _deviceMemoryProperties)
 {
@@ -213,7 +218,7 @@ void VulkanImp::compute() {
 		specializationInfo.mapEntryCount = 1;
 		specializationInfo.pData = &specializationData;
 		specializationInfo.pMapEntries = &specializationMapEntry;
-		auto computeShaderCode = readFile("E:/SLAM_LYJ/src/vulkanImp/shader/compute/headless.comp.spv");
+		auto computeShaderCode = readFile(shaderPath + "compute/headless.comp.spv");
 		VkShaderModule computeShaderModule = createShaderModule(m_device, computeShaderCode);
 		VkPipelineShaderStageCreateInfo pipelineShaderStageCreateInfo{};
 		pipelineShaderStageCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -549,13 +554,13 @@ void VulkanImp::init() {
 
 	//texture2d
 	auto funcCreateTextureImage = [&]() {
-		//std::string imgName = "E:/SLAM_LYJ/other/IMG_9179[1](1).png";
+		//std::string imgName = imagePath + "IMG_9179[1](1).png";
 		//cv::Mat image1 = cv::imread(imgName, cv::IMREAD_UNCHANGED);
 		//cv::Mat image = image1.clone();
 		//if (image.channels() == 3)
 		//	cv::cvtColor(image, image, cv::COLOR_BGR2BGRA);
 
-		std::string imgName = "E:/SLAM_LYJ/other/IMG_9179[1](1).png";
+		std::string imgName = imagePath + "IMG_9179[1](1).png";
 		cv::Mat image1 = cv::imread(imgName, 0);
 		cv::Mat image2 = image1.clone();
 		if (image1.empty() || image2.empty()) {
@@ -569,7 +574,7 @@ void VulkanImp::init() {
 		if (image.channels() == 1)
 			cv::cvtColor(image, image, cv::COLOR_GRAY2RGBA);
 
-		//std::string imgName = "E:/SLAM_LYJ/other/img1.png";
+		//std::string imgName = imagePath + "img1.png";
 		//cv::Mat image = cv::imread(imgName, cv::IMREAD_UNCHANGED);
 		//if (image.empty()) {
 		//	throw std::runtime_error("failed to load texture image!");
@@ -927,10 +932,10 @@ void VulkanImp::init() {
 
 	//pipeline
 	auto funcCreateGraphicsPipline = [&]() {
-		//auto vertShaderCode = readFile("E:/SLAM_LYJ/src/vulkanImp/shader/triangle/triangle.vert.spv");
-		//auto fragShaderCode = readFile("E:/SLAM_LYJ/src/vulkanImp/shader/triangle/triangle.frag.spv");
-		auto vertShaderCode = readFile("E:/SLAM_LYJ/src/vulkanImp/shader/texture/texture.vert.spv");
-		auto fragShaderCode = readFile("E:/SLAM_LYJ/src/vulkanImp/shader/texture/texture.frag.spv");
+		//auto vertShaderCode = readFile(shaderPath + "triangle/triangle.vert.spv");
+		//auto fragShaderCode = readFile(shaderPath + "triangle/triangle.frag.spv");
+		auto vertShaderCode = readFile(shaderPath + "texture/texture.vert.spv");
+		auto fragShaderCode = readFile(shaderPath + "texture/texture.frag.spv");
 		VkShaderModule vertShaderModule = createShaderModule(m_device, vertShaderCode);
 		VkShaderModule fragShaderModule = createShaderModule(m_device, fragShaderCode);
 		VkPipelineShaderStageCreateInfo vertShaderStageInfo{};

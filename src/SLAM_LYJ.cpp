@@ -67,7 +67,7 @@ SLAM_LYJ_API void testCeres() {
     for (auto a : abc) std::cout << a << " ";
 }
 SLAM_LYJ_API void testOpenCV() {
-    cv::Mat m = cv::imread("F:/�о���/ǩ��.jpg");
+    cv::Mat m = cv::imread(LYJOPT->sysHomePath + "other/down.png");
     cv::pyrDown(m, m);
     cv::pyrDown(m, m);
     cv::imshow("test", m);
@@ -177,6 +177,9 @@ SLAM_LYJ_API void testTensor() {
     qr.QR(mat.data(), Q.data(), R.data());
 }
 SLAM_LYJ_API void testCommonAlgorithm() {
+	//Rodrigues
+	auto R = SLAM_LYJ_MATH::Rodrigues2RotMatrix<double>(Eigen::Vector3d(1, 0, 0), 0.523);
+	std::cout << R << std::endl;
     //�׳�
     uint64_t res1 = SLAM_LYJ_MATH::factorial(10, 9);
     std::cout << "�׳ˣ�"<<res1 << std::endl;
@@ -437,8 +440,8 @@ SLAM_LYJ_API void testBuffer(){
 }
 SLAM_LYJ_API void testGlobalOption() {
     //GlobalInnerOption* gOpt = GlobalInnerOption::get();
-    LYJOpt->sysName = "LYJ_SLAM";
-    std::cout << LYJOpt->sysName << std::endl;
+    LYJOPT->sysName = "LYJ_SLAM";
+    std::cout << LYJOPT->sysName << std::endl;
 }
 
 SLAM_LYJ_API int getVersion(){

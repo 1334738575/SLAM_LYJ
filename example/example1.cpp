@@ -16,114 +16,6 @@ void testTemplate(const T* _a) {
     std::cout << _a << std::endl;
 }
 
-class CURVE_FITTING_COST {
-public:
-    CURVE_FITTING_COST(double x, double y) :_x(x), _y(y) {}
-    template<typename T>
-    bool operator()(const T* const abc, T* residual) const
-    {
-        residual[0] = T(_y) - ceres::exp(abc[0] * T(_x) * T(_x) + abc[1] * T(_x) + abc[2]);
-        return true;
-    }
-    const double _x, _y; //x,y����
-};
-void testCeres() {
-    double ae = 2.0, be = -1.0, ce = 5.0;        // ���Ʋ���ֵ
-    //�ڴ���������Ͼ��ȵ�����100�����ݵ㣬���ϰ���������Ϊ���������
-    int N = 100;                                 // ���ݵ�
-    double w_sigma = 1.0;                        // ����Sigmaֵ
-    double inv_sigma = 1.0 / w_sigma;
-    cv::RNG rng;                                 // OpenCV�����������
-    vector<double> x_data, y_data;      // ����
-    for (int i = 0; i < N; i++) {
-        double x = i / 100.0;
-        x_data.push_back(x);
-        y_data.push_back(exp(ae * x * x + be * x + ce) + rng.gaussian(w_sigma * w_sigma));
-    }
-    double abc[3] = { ae,be,ce };
-    //����������С��������
-    ceres::Problem problem;
-    for (int i = 0; i < N; ++i)
-    {
-        //����������������ʹ���Զ��󵼣�ģ�������������ͣ����ά�ȣ��в��ά�ȣ�������ά�ȣ����Ż�������ά�ȣ���ά��Ҫ��ǰ���struct��һ�£�
-        problem.AddResidualBlock(
-            new ceres::AutoDiffCostFunction<CURVE_FITTING_COST, 1, 3>(new CURVE_FITTING_COST(x_data[i], y_data[i])),
-            nullptr,  //�˺��������ﲻ��Ҫ����Ϊ��
-            abc      //�����Ʋ���
-        );
-    }
-    //�������������
-    ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_NORMAL_CHOLESKY;//��������������
-    options.minimizer_progress_to_stdout = true;  //�����cout
-    ceres::Solver::Summary summary; //�Ż���Ϣ
-    ceres::Solve(options, &problem, &summary);//��ʼ�Ż�
-    //������
-    cout << summary.BriefReport() << endl;
-    cout << "estimated a,b,c=";
-    for (auto a : abc) cout << a << " ";
-}
-
-void testOpenCV() {
-    cv::Mat m = cv::imread("F:/work/2023����Ƭ/20230327���û�/IMG_9179[1](1).png");
-    cv::pyrDown(m, m);
-    cv::pyrDown(m, m);
-    std::vector<cv::KeyPoint> kps;
-    cv::Ptr<cv::xfeatures2d::SiftFeatureDetector> sift = cv::xfeatures2d::SiftFeatureDetector::create();
-    sift->detect(m, kps);
-    cv::Ptr<cv::LineSegmentDetector> lsd = cv::createLineSegmentDetector();
-    std::vector<cv::Vec4f> vecLines;
-    cv::Mat gray;
-    cv::cvtColor(m, gray, cv::COLOR_RGB2GRAY);
-    lsd->detect(gray, vecLines);
-    cv::Mat outml = m.clone();
-    lsd->drawSegments(outml, vecLines);
-    cv::Mat outm;
-    cv::drawKeypoints(m, kps, outm);
-    cv::imshow("test2", m);
-    cv::imshow("line", outml);
-    cv::imshow("kp", outm);
-    cv::waitKey();
-}
-
-void testEigen() {
-    Eigen::Vector2d x;
-    x.setZero();
-    std::cout << x << std::endl;
-    Eigen::Matrix2d m;
-    m << 0, 1, -1, 0;
-    std::cout << m << std::endl;
-}
-
-void testVulkan() {
-    VkInstance instance;
-    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-    VkDevice device;
-    VkApplicationInfo appInfo{};
-    appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Hello Vulkan";
-    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.pEngineName = "No Engine";
-    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.apiVersion = VK_API_VERSION_1_0;
-
-    VkInstanceCreateInfo createInfo{};
-    createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    createInfo.pApplicationInfo = &appInfo;
-
-    uint32_t glfwCnt = 0;
-    const char** glfwExtensions;
-    glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwCnt);
-
-    createInfo.enabledExtensionCount = glfwCnt;
-    createInfo.ppEnabledExtensionNames = glfwExtensions;
-    createInfo.enabledLayerCount = 0;
-
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create instance!");
-    }
-}
-
 template<int A>
 Eigen::Matrix<double, A, 1> createMatrix() {
     return Eigen::Matrix<double, A, 1>::Zero();
@@ -234,10 +126,6 @@ void test() {
 
 int main(int argc, char* argv[]){
     //test();
-    //testCeres();
-    //testOpenCV();
-    //testEigen();
-    //testVulkan();
     //testGrowTemplate();
     std::cout<<"Hello SLAM_LYJ!" <<std::endl;
     std::cout<< "Current version is: " << SLAM_LYJ::getVersion() << std::endl;
@@ -245,12 +133,12 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testEigen();
     //SLAM_LYJ::testOpenCV();
     //SLAM_LYJ::testThreadPool();
-    SLAM_LYJ::testVulkan();
+    //SLAM_LYJ::testVulkan();
     //SLAM_LYJ::testKdTree();
     //SLAM_LYJ::testPoint();
     //SLAM_LYJ::testArchive();
     // SLAM_LYJ::testTensor();
-    //SLAM_LYJ::testCommonAlgorithm();
+    SLAM_LYJ::testCommonAlgorithm();
     //SLAM_LYJ::testRANSAC();
     //SLAM_LYJ::testLine();
     //SLAM_LYJ::testPlane();

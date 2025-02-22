@@ -82,9 +82,12 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 #add source
 set(MULTI_DLL 0)
 add_definitions(-DLYJDEBUG)
-set(SHADERCOMPILER F:/Vulkan/SDK121981/Bin/glslangValidator.exe)
+set(SHADERCOMPILER "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Vulkan121981/SDK121981/Bin/glslangValidator.exe")
 include_directories(src)
 add_subdirectory(src)
+file(GLOB SLAM_LYJ_CONFIG
+    config/*.h)
+source_group(config/${_source_path_msvc} FILES ${SLAM_LYJ_CONFIG})
 
 #add pytest
 add_subdirectory(examplePy)

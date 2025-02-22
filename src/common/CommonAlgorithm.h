@@ -6,6 +6,19 @@
 
 NSP_SLAM_LYJ_MATH_BEGIN
 
+//Rodrigues
+template<typename T>
+static Eigen::Matrix<T, 3, 3> Rodrigues2RotMatrix(const Eigen::Matrix<T, 3, 1>& _r, const T _theta) {
+	if (_theta < 1e-10) {
+		return Eigen::Matrix<T, 3, 3>::Identity();
+	}
+	Eigen::Matrix<T, 3, 3> R = Eigen::Matrix<T, 3, 3>::Identity();
+	Eigen::Matrix<T, 3, 3> r_hat = skewSymmetric(_r);
+	R += r_hat * sin(_theta);
+	R += r_hat * r_hat * (1 - cos(_theta));
+	return R;
+}
+
 //incremental avg and var
 template<typename T, int DIM>
 static void calculateAgvAndVar(int _lastCnt, const T* _curData, T* _agv, T* _var, const bool _updateVar = true) {

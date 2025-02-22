@@ -14,6 +14,7 @@
 #include "common/Grid.h"
 #include "Pose.h"
 #include "CameraModule.h"
+#include "config.h"
 
 NSP_SLAM_LYJ_BEGIN
 
@@ -24,7 +25,7 @@ class GlobalInnerOption
 {
 public:
 	std::string sysName = "";
-
+	std::string sysHomePath = SLAM_LYJ_HOME_PATH;
 
 public:
 	GlobalInnerOption() {}
@@ -36,7 +37,7 @@ private:
 	static GlobalInnerOption opt_;
 };
 
-#define LYJOpt GlobalInnerOption::get()
+#define LYJOPT GlobalInnerOption::get()
 
 NSP_SLAM_LYJ_END
 

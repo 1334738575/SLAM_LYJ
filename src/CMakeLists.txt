@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 project(SLAM_LYJ)
 
+#load config
+set(SLAM_LYJ_HOME_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../")
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../config/config.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/../config/config.h
+    @ONLY
+)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../config)
+
 #add file and subdirectory
 file(GLOB SLAM_LYJ_BASE
     base/*.h
@@ -62,7 +71,7 @@ macro(GenShader args)
         execute_process(COMMAND ${SHADERCOMPILER} -V ${arg} -o ${arg}.spv)
     endforeach()
 endmacro()
-if(not USE_OLD_SHADER)
+if(NOT USE_OLD_SHADER)
     file(GLOB ALLSHADERS ${CMAKE_CURRENT_SOURCE_DIR}/vulkanImp/shader/*)
     foreach(SHADER ${ALLSHADERS})
         if(IS_DIRECTORY ${SHADER})
@@ -85,6 +94,7 @@ if(not USE_OLD_SHADER)
     endforeach()
 endif()
 
+# if compile apart
 if(MULTI_DLL EQUAL 0)
     # message(FATAL_ERROR "single")
     #后续拆分为多个库
@@ -222,9 +232,18 @@ else()
 
 endif()
 
+# set debug info
+if(WIN32)
+    if(MSVC)
+        target_compile_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:Release>:/O2;/Ob2>")
+        target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:Release>:/DEBUG>")
+    endif()
+endif()
+
+# show as a folder
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER ${PROJECT_NAME})
 
-# message(FATAL_ERROR ${CMAKE_CURRENT_BINARY_DIR}/../example/Release)
+# copy library after build
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${CMAKE_CURRENT_BINARY_DIR}/../example/Release
 COMMENT "Copying ${PROJECT_NAME}.dll to ${CMAKE_CURRENT_BINARY_DIR}/../example/Release"

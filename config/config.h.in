@@ -1,0 +1,2 @@
+#pragma once
+#define SLAM_LYJ_HOME_PATH "@SLAM_LYJ_HOME_PATH@"
