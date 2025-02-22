@@ -77,13 +77,16 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 # message(FATAL_ERROR ${OpenCV_LIBS})
 
 
-###############################find_package####################################
+###############################sub_projects####################################
 #add source
 set(MULTI_DLL 0)
 add_definitions(-DLYJDEBUG)
 set(SHADERCOMPILER F:/Vulkan/SDK121981/Bin/glslangValidator.exe)
 include_directories(src)
 add_subdirectory(src)
+
+#add pytest
+add_subdirectory(examplePy)
 
 #add executable
 add_subdirectory(example)
