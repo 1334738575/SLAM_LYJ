@@ -20,6 +20,7 @@ endif()
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 option(USE_BOOST "Enable boost." OFF)
+option(USE_OLD_SHADER "Use old shader or complie new shader." ON)
 
 #find package and add functions
 include(cmake)
