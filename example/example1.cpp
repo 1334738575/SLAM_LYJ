@@ -25,47 +25,47 @@ public:
         residual[0] = T(_y) - ceres::exp(abc[0] * T(_x) * T(_x) + abc[1] * T(_x) + abc[2]);
         return true;
     }
-    const double _x, _y; //x,yÊý¾Ý
+    const double _x, _y; //x,yï¿½ï¿½ï¿½ï¿½
 };
 void testCeres() {
-    double ae = 2.0, be = -1.0, ce = 5.0;        // ¹À¼Æ²ÎÊýÖµ
-    //ÔÚ´ýÄâºÏÇúÏßÉÏ¾ùÔÈµÄÉú³É100¸öÊý¾Ýµã£¬¼ÓÉÏ°×ÔëÉù£¬×÷Îª´ýÄâºÏÇúÏß
-    int N = 100;                                 // Êý¾Ýµã
-    double w_sigma = 1.0;                        // ÔëÉùSigmaÖµ
+    double ae = 2.0, be = -1.0, ce = 5.0;        // ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½Öµ
+    //ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½ï¿½ï¿½ï¿½Ýµã£¬ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int N = 100;                                 // ï¿½ï¿½ï¿½Ýµï¿½
+    double w_sigma = 1.0;                        // ï¿½ï¿½ï¿½ï¿½SigmaÖµ
     double inv_sigma = 1.0 / w_sigma;
-    cv::RNG rng;                                 // OpenCVËæ»úÊý²úÉúÆ÷
-    vector<double> x_data, y_data;      // Êý¾Ý
+    cv::RNG rng;                                 // OpenCVï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    vector<double> x_data, y_data;      // ï¿½ï¿½ï¿½ï¿½
     for (int i = 0; i < N; i++) {
         double x = i / 100.0;
         x_data.push_back(x);
         y_data.push_back(exp(ae * x * x + be * x + ce) + rng.gaussian(w_sigma * w_sigma));
     }
     double abc[3] = { ae,be,ce };
-    //¶þ¡¢¹¹½¨×îÐ¡¶þ³ËÎÊÌâ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     ceres::Problem problem;
     for (int i = 0; i < N; ++i)
     {
-        //ÏòÎÊÌâÖÐÌí¼ÓÎó²îÏî£¬Ê¹ÓÃ×Ô¶¯Çóµ¼£¬Ä£°å²ÎÊý£ºÎó²îÀàÐÍ£¬Êä³öÎ¬¶È£¨²Ð²îµÄÎ¬¶È£©£¬ÊäÈëÎ¬¶È£¨´ýÓÅ»¯±äÁ¿µÄÎ¬¶È£©£¬Î¬ÊýÒªÓëÇ°ÃæµÄstructÖÐÒ»ÖÂ£¬
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î£¬Ê¹ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½óµ¼£ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½Ð²ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½ï¿½Î¬ï¿½ï¿½Òªï¿½ï¿½Ç°ï¿½ï¿½ï¿½structï¿½ï¿½Ò»ï¿½Â£ï¿½
         problem.AddResidualBlock(
             new ceres::AutoDiffCostFunction<CURVE_FITTING_COST, 1, 3>(new CURVE_FITTING_COST(x_data[i], y_data[i])),
-            nullptr,  //ºËº¯Êý£¬ÕâÀï²»ÐèÒª£¬¹ÊÎª¿Õ
-            abc      //´ý¹À¼Æ²ÎÊý
+            nullptr,  //ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï²»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
+            abc      //ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½
         );
     }
-    //Èý¡¢ÅäÖÃÇó½âÆ÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_NORMAL_CHOLESKY;//ÔöÁ¿·½³ÌÈçºÎÇó½â
-    options.minimizer_progress_to_stdout = true;  //Êä³öµ½cout
-    ceres::Solver::Summary summary; //ÓÅ»¯ÐÅÏ¢
-    ceres::Solve(options, &problem, &summary);//¿ªÊ¼ÓÅ»¯
-    //Êä³ö½á¹û
+    options.linear_solver_type = ceres::DENSE_NORMAL_CHOLESKY;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    options.minimizer_progress_to_stdout = true;  //ï¿½ï¿½ï¿½ï¿½ï¿½cout
+    ceres::Solver::Summary summary; //ï¿½Å»ï¿½ï¿½ï¿½Ï¢
+    ceres::Solve(options, &problem, &summary);//ï¿½ï¿½Ê¼ï¿½Å»ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cout << summary.BriefReport() << endl;
     cout << "estimated a,b,c=";
     for (auto a : abc) cout << a << " ";
 }
 
 void testOpenCV() {
-    cv::Mat m = cv::imread("F:/work/2023ÄêÕÕÆ¬/20230327²¼ÖÃ»á/IMG_9179[1](1).png");
+    cv::Mat m = cv::imread("F:/work/2023ï¿½ï¿½ï¿½ï¿½Æ¬/20230327ï¿½ï¿½ï¿½Ã»ï¿½/IMG_9179[1](1).png");
     cv::pyrDown(m, m);
     cv::pyrDown(m, m);
     std::vector<cv::KeyPoint> kps;
@@ -185,7 +185,7 @@ void test() {
     //int a = 1;
     //a <<= 31;
     //a >>= 31;
-    //std::cout << a << std::endl; // -1,ÓÒÒÆ±£³Ö·ûºÅÎ»
+    //std::cout << a << std::endl; // -1,ï¿½ï¿½ï¿½Æ±ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Î»
     //return;
     ////std::pair<int, int>* pp = new std::pair<int, int>[10];
     //Eigen::SparseMatrix<double> sm;

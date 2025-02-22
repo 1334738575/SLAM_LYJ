@@ -116,7 +116,14 @@ if(MULTI_DLL EQUAL 0)
         ${SLAM_LYJ_OUT}
         )
 
-    target_link_libraries(${PROJECT_NAME} Ceres::ceres glm::glm ${OpenCV_LIBS} ${VULKAN_LIBRARIES} ${GLFW_LIBRARIES} ${Boost_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} 
+        Ceres::ceres 
+        glm::glm 
+        ${OpenCV_LIBS} 
+        ${VULKAN_LIBRARIES} 
+        ${GLFW_LIBRARIES} 
+        ${Boost_LIBRARIES}
+    )
 else()
     # message(FATAL_ERROR "multi")
     #generate dll libraries

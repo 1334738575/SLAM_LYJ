@@ -14,7 +14,6 @@
 #include "extractor/Cannyextractor.h"
 #include "extractor/SIFTextractor.h"
 #include "STLPlus/include/file_system.h"
-//#include <boost/filesystem.hpp>
 
 #include "debugger/debugger.h"
 
@@ -29,46 +28,46 @@ public:
         residual[0] = T(_y) - ceres::exp(abc[0] * T(_x) * T(_x) + abc[1] * T(_x) + abc[2]);
         return true;
     }
-    const double _x, _y; //x,yÊý¾Ý
+    const double _x, _y; //x,yï¿½ï¿½ï¿½ï¿½
 };
 SLAM_LYJ_API void testCeres() {
-    double ae = 2.0, be = -1.0, ce = 5.0;        // ¹À¼Æ²ÎÊýÖµ
-    //ÔÚ´ýÄâºÏÇúÏßÉÏ¾ùÔÈµÄÉú³É100¸öÊý¾Ýµã£¬¼ÓÉÏ°×ÔëÉù£¬×÷Îª´ýÄâºÏÇúÏß
-    int N = 100;                                 // Êý¾Ýµã
-    double w_sigma = 1.0;                        // ÔëÉùSigmaÖµ
+    double ae = 2.0, be = -1.0, ce = 5.0;        // ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½Öµ
+    //ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½ï¿½ï¿½ï¿½Ýµã£¬ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int N = 100;                                 // ï¿½ï¿½ï¿½Ýµï¿½
+    double w_sigma = 1.0;                        // ï¿½ï¿½ï¿½ï¿½SigmaÖµ
     double inv_sigma = 1.0 / w_sigma;
-    cv::RNG rng;                                 // OpenCVËæ»úÊý²úÉúÆ÷
-    std::vector<double> x_data, y_data;      // Êý¾Ý
+    cv::RNG rng;                                 // OpenCVï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    std::vector<double> x_data, y_data;      // ï¿½ï¿½ï¿½ï¿½
     for (int i = 0; i < N; i++) {
         double x = i / 100.0;
         x_data.push_back(x);
         y_data.push_back(exp(ae * x * x + be * x + ce) + rng.gaussian(w_sigma * w_sigma));
     }
     double abc[3] = { ae,be,ce };
-    //¶þ¡¢¹¹½¨×îÐ¡¶þ³ËÎÊÌâ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     ceres::Problem problem;
     for (int i = 0; i < N; ++i)
     {
-        //ÏòÎÊÌâÖÐÌí¼ÓÎó²îÏî£¬Ê¹ÓÃ×Ô¶¯Çóµ¼£¬Ä£°å²ÎÊý£ºÎó²îÀàÐÍ£¬Êä³öÎ¬¶È£¨²Ð²îµÄÎ¬¶È£©£¬ÊäÈëÎ¬¶È£¨´ýÓÅ»¯±äÁ¿µÄÎ¬¶È£©£¬Î¬ÊýÒªÓëÇ°ÃæµÄstructÖÐÒ»ÖÂ£¬
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î£¬Ê¹ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½óµ¼£ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½Ð²ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½È£ï¿½ï¿½ï¿½Î¬ï¿½ï¿½Òªï¿½ï¿½Ç°ï¿½ï¿½ï¿½structï¿½ï¿½Ò»ï¿½Â£ï¿½
         problem.AddResidualBlock(
             new ceres::AutoDiffCostFunction<CURVE_FITTING_COST, 1, 3>(new CURVE_FITTING_COST(x_data[i], y_data[i])),
-            nullptr,  //ºËº¯Êý£¬ÕâÀï²»ÐèÒª£¬¹ÊÎª¿Õ
-            abc      //´ý¹À¼Æ²ÎÊý
+            nullptr,  //ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï²»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
+            abc      //ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½
         );
     }
-    //Èý¡¢ÅäÖÃÇó½âÆ÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_NORMAL_CHOLESKY;//ÔöÁ¿·½³ÌÈçºÎÇó½â
-    options.minimizer_progress_to_stdout = true;  //Êä³öµ½cout
-    ceres::Solver::Summary summary; //ÓÅ»¯ÐÅÏ¢
-    ceres::Solve(options, &problem, &summary);//¿ªÊ¼ÓÅ»¯
-    //Êä³ö½á¹û
+    options.linear_solver_type = ceres::DENSE_NORMAL_CHOLESKY;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    options.minimizer_progress_to_stdout = true;  //ï¿½ï¿½ï¿½ï¿½ï¿½cout
+    ceres::Solver::Summary summary; //ï¿½Å»ï¿½ï¿½ï¿½Ï¢
+    ceres::Solve(options, &problem, &summary);//ï¿½ï¿½Ê¼ï¿½Å»ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     std::cout << summary.BriefReport() << std::endl;
     std::cout << "estimated a,b,c=";
     for (auto a : abc) std::cout << a << " ";
 }
 SLAM_LYJ_API void testOpenCV() {
-    cv::Mat m = cv::imread("F:/ÑÐ¾¿Éú/Ç©Ãû.jpg");
+    cv::Mat m = cv::imread("F:/ï¿½Ð¾ï¿½ï¿½ï¿½/Ç©ï¿½ï¿½.jpg");
     cv::pyrDown(m, m);
     cv::pyrDown(m, m);
     cv::imshow("test", m);
@@ -178,15 +177,15 @@ SLAM_LYJ_API void testTensor() {
     qr.QR(mat.data(), Q.data(), R.data());
 }
 SLAM_LYJ_API void testCommonAlgorithm() {
-    //½×³Ë
+    //ï¿½×³ï¿½
     uint64_t res1 = SLAM_LYJ_MATH::factorial(10, 9);
-    std::cout << "½×³Ë£º"<<res1 << std::endl;
-    //ÅÅÁÐ
+    std::cout << "ï¿½×³Ë£ï¿½"<<res1 << std::endl;
+    //ï¿½ï¿½ï¿½ï¿½
     uint64_t res2 = SLAM_LYJ_MATH::pernutateNum(10, 2);
-    std::cout << "ÅÅÁÐ:"<<res2 << std::endl;
-    //×éºÏ
+    std::cout << "ï¿½ï¿½ï¿½ï¿½:"<<res2 << std::endl;
+    //ï¿½ï¿½ï¿½
     uint64_t res3 = SLAM_LYJ_MATH::selectNum(2, 1);
-    std::cout << "×éºÏ:"<<res3 << std::endl;
+    std::cout << "ï¿½ï¿½ï¿½:"<<res3 << std::endl;
     std::vector<std::vector<int>> results;
     SLAM_LYJ_MATH::fullSelection(10, 10, results);
     for (int i = 0; i < (int)results.size(); ++i) {
@@ -329,7 +328,7 @@ SLAM_LYJ_API void testBitFlagVec() {
     std::cout << bfv[4] << std::endl;
 }
 SLAM_LYJ_API void testFrame() {
-    cv::Mat m = cv::imread("F:/ÑÐ¾¿Éú/Ç©Ãû.jpg", 0);
+    cv::Mat m = cv::imread("F:/ï¿½Ð¾ï¿½ï¿½ï¿½/Ç©ï¿½ï¿½.jpg", 0);
     cv::pyrDown(m, m);
     cv::pyrDown(m, m);
     cv::pyrDown(m, m);
