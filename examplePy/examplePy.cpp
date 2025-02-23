@@ -28,6 +28,7 @@ PYBIND11_MODULE(examplePy, m) {
 	;
 
 	m.def("SLAM_LYJ_VERSION", &SLAM_LYJ::getVersion, "SLAM_LYJ's version");
+	m.def("SLAM_LYJ_VULKAN", &SLAM_LYJ::testVulkan, "SLAM_LYJ's vulkan");
 }
 
 
