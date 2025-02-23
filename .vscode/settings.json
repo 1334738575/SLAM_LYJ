@@ -55,5 +55,6 @@
         "xfunctional": "cpp",
         "xthread": "cpp",
         "string": "cpp"
-    }
+    },
+    "python.languageServer": "Pylance"
 }

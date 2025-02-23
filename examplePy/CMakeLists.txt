@@ -25,4 +25,17 @@ if(${pybind11_FOUND})
         PRIVATE ${Python_LIBRARIES}
         PUBLIC SLAM_LYJ
     )
+    # set dll and lib output path
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
+    )
+    # # generate pyi using command
+    # add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    # COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${CMAKE_CURRENT_SOURCE_DIR}
+    # COMMENT "copy pyd"
+    # # COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/generatePyi.py #path error, not use
+    # # COMMENT "generate pyi"
+    # )
 endif()

@@ -133,12 +133,12 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testEigen();
     //SLAM_LYJ::testOpenCV();
     //SLAM_LYJ::testThreadPool();
-    //SLAM_LYJ::testVulkan();
+    SLAM_LYJ::testVulkan();
     //SLAM_LYJ::testKdTree();
     //SLAM_LYJ::testPoint();
     //SLAM_LYJ::testArchive();
     // SLAM_LYJ::testTensor();
-    SLAM_LYJ::testCommonAlgorithm();
+    //SLAM_LYJ::testCommonAlgorithm();
     //SLAM_LYJ::testRANSAC();
     //SLAM_LYJ::testLine();
     //SLAM_LYJ::testPlane();

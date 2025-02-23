@@ -243,8 +243,14 @@ endif()
 # show as a folder
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER ${PROJECT_NAME})
 
-# copy library after build
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${CMAKE_CURRENT_BINARY_DIR}/../example/Release
-COMMENT "Copying ${PROJECT_NAME}.dll to ${CMAKE_CURRENT_BINARY_DIR}/../example/Release"
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
 )
+
+# # copy library after build using command
+# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+# COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${CMAKE_CURRENT_BINARY_DIR}/../example/Release
+# COMMENT "Copying ${PROJECT_NAME}.dll to ${CMAKE_CURRENT_BINARY_DIR}/../example/Release"
+# )

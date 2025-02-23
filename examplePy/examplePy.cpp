@@ -7,8 +7,10 @@ using namespace std;
 
 namespace py = pybind11;
 
-struct PybindStrcut
+struct PybindStruct
 {
+	PybindStruct() : version(0) {}
+	PybindStruct(int v) : version(v) {}
 	int version = 0;
 };
 
@@ -19,9 +21,10 @@ int addPy(int v1, int v2) {
 PYBIND11_MODULE(examplePy, m) {
 	m.doc() = "python example of SLAM_LYJ";
 	m.def("addPy", &addPy, "int + int, return int");
-	py::class_<PybindStrcut>(m, "PybindStrcut")
+	py::class_<PybindStruct>(m, "PyStruct")
 		.def(py::init<>())
-		.def_readwrite("version", &PybindStrcut::version)
+		.def(py::init<int>())
+		.def_readwrite("version", &PybindStruct::version)
 	;
 
 	m.def("SLAM_LYJ_VERSION", &SLAM_LYJ::getVersion, "SLAM_LYJ's version");
