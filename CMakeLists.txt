@@ -22,28 +22,23 @@ option(USE_BOOST "Enable boost." OFF)
 option(USE_OLD_SHADER "Use old shader or complie new shader." ON)
 
 #find package and add functions
-include(cmake/PKGPath.cmake)
+include(config/PKGPath.cmake)
 
 
 ###############################find_package####################################
 #vulkan
-# set(${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Vulkan;${CMAKE_MODULE_PATH}")
-# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Vulkan")
 find_package(Vulkan)
 include_directories(${VULKAN_INCLUDE_DIRS})
 
 #glfw
-# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Glfw")
 find_package(Glfw)
 include_directories(${GLFW_INCLUDE_DIRS})
 
 #glm
-# set(glm_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Glm099/glm/cmake/glm")
 find_package(glm)
 
 #boost
 if(USE_BOOST)
-    # set(Boost_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Boost/lib/cmake/Boost-1.86.0")
     find_package(Boost REQUIRED COMPONENTS serialization)
     if(${Boost_FOUND})
         add_definitions(-DUSEBOOST)
@@ -53,17 +48,13 @@ endif()
 
 
 #eigen
-# set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../cmake;${CMAKE_MODULE_PATH}")
-# set(Eigen3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Eigen/share/eigen3/cmake")
 find_package(Eigen3 3.3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIRS})
 
 #ceres
-# set(Ceres_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Ceres/lib/cmake/Ceres")
 find_package(Ceres REQUIRED)
 
 #opencv
-# set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Opencv/lib")
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
@@ -94,7 +85,6 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 #add source
 set(MULTI_DLL 0)
 add_definitions(-DLYJDEBUG)
-# set(SHADERCOMPILER "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Vulkan121981/SDK121981/Bin/glslangValidator.exe")
 include_directories(src)
 add_subdirectory(src)
 file(GLOB SLAM_LYJ_CONFIG
