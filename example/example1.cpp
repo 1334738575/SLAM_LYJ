@@ -133,7 +133,7 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testEigen();
     //SLAM_LYJ::testOpenCV();
     //SLAM_LYJ::testThreadPool();
-    SLAM_LYJ::testVulkan();
+    //SLAM_LYJ::testVulkan();
     //SLAM_LYJ::testKdTree();
     //SLAM_LYJ::testPoint();
     //SLAM_LYJ::testArchive();
@@ -153,5 +153,8 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testSTLPlus();
     //SLAM_LYJ::testBuffer();
     //SLAM_LYJ::testGlobalOption();
+	//SLAM_LYJ::testFlann();
+	//SLAM_LYJ::testPCL();
+    SLAM_LYJ::testQT();
     return 0;
 }

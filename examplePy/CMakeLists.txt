@@ -25,7 +25,7 @@ if(${pybind11_FOUND})
         PRIVATE ${Python_LIBRARIES}
         PUBLIC SLAM_LYJ
     )
-    # set dll and lib output path
+    # set dll, lib and exe output path
     set_target_properties(${PROJECT_NAME} PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
         ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../build/example
