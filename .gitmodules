@@ -1,3 +1,6 @@
 [submodule "src"]
 	path = src
 	url = https://github.com/1334738575/SLAM_LYJ_src.git
+[submodule "cmake"]
+	path = cmake
+	url = https://github.com/1334738575/SLAM_LYJ_CMAKE.git
