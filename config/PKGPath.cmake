@@ -21,6 +21,7 @@ set(cJSON_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/cJSON/lib/cmake/cJSON")
 set(flann_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/flann/lib/cmake/flann")
 set(VTK_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/vtk/lib/cmake/VTK-9.4")
 set(PCL_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/pcl/cmake")
+set(pybind11_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/pybind11/install/share/cmake/pybind11")
 
 
 set(SHADERCOMPILER "${CMAKE_CURRENT_LIST_DIR}/../dependencies/Vulkan121981/SDK121981/Bin/glslangValidator.exe")

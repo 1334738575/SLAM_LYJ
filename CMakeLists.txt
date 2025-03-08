@@ -16,10 +16,11 @@ elseif(LINUX)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g")
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -g")
 endif()
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+# set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 option(USE_BOOST "Enable boost." OFF)
 option(USE_OLD_SHADER "Use old shader or complie new shader." ON)
+set(LIBRARY_LYJ_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build/example)
 
 #find package and add functions
 include(config/PKGPath.cmake)
@@ -91,8 +92,11 @@ file(GLOB SLAM_LYJ_CONFIG
     config/*.h)
 source_group(config/${_source_path_msvc} FILES ${SLAM_LYJ_CONFIG})
 
+include_directories(viewer)
+add_subdirectory(viewer)
+
 #add pytest
-add_subdirectory(examplePy)
+add_subdirectory(PY_LYJ)
 
 #add executable
 add_subdirectory(example)

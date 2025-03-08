@@ -1,5 +1,6 @@
 #include <iostream>
 #include "SLAM_LYJ.h"
+#include "QT_LYJ.h"
 #include <Eigen/Core>
 #include <Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -8,6 +9,7 @@
 #include <ceres/ceres.h>
 #include <vulkan/vulkan.hpp>
 #include <glfw/glfw3.h>
+
  using namespace std;
 
 
@@ -155,6 +157,7 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testGlobalOption();
 	//SLAM_LYJ::testFlann();
 	//SLAM_LYJ::testPCL();
-    SLAM_LYJ::testQT();
+    //SLAM_LYJ::testQT();
+    QT_LYJ::testQT();
     return 0;
 }

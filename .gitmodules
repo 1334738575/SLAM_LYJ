@@ -4,3 +4,6 @@
 [submodule "cmake"]
 	path = cmake
 	url = https://github.com/1334738575/SLAM_LYJ_CMAKE.git
+[submodule "viewer"]
+	path = viewer
+	url = https://github.com/1334738575/SLAM_LYJ_qt.git
