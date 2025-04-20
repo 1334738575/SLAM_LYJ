@@ -158,6 +158,8 @@ int main(int argc, char* argv[]){
 	//SLAM_LYJ::testFlann();
 	//SLAM_LYJ::testPCL();
     //SLAM_LYJ::testQT();
-    QT_LYJ::testQT();
+    //QT_LYJ::testQT();
+    SLAM_LYJ::testPatchMatch();
+    //SLAM_LYJ::testDiffuser();
     return 0;
 }
