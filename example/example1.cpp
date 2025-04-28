@@ -157,9 +157,9 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testGlobalOption();
 	//SLAM_LYJ::testFlann();
 	//SLAM_LYJ::testPCL();
-    QT_LYJ::testQT();
+    //QT_LYJ::testQT();
     //SLAM_LYJ::testPatchMatch();
     //SLAM_LYJ::testDiffuser();
-    //SLAM_LYJ::testPolarGrid();
+    SLAM_LYJ::testPolarGrid();
     return 0;
 }
