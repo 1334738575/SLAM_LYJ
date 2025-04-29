@@ -160,6 +160,7 @@ int main(int argc, char* argv[]){
     //QT_LYJ::testQT();
     //SLAM_LYJ::testPatchMatch();
     //SLAM_LYJ::testDiffuser();
-    SLAM_LYJ::testPolarGrid();
+    //SLAM_LYJ::testPolarGrid();
+    QT_LYJ::testOpenGLOnly();
     return 0;
 }
