@@ -12,6 +12,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../dependencies/lz4")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../dependencies/libpng")
 # set(PNG_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/libpng/lib/cmake/PNG")
 
+list(APPEND CMAKE_MODULE_PATH "D:/SLAM_LYJ/dependencies/Glew")
+
 set(Boost_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/Boost/lib/cmake/Boost-1.86.0")
 set(glm_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/Glm099/glm/cmake/glm")
 set(Eigen3_DIR "${CMAKE_CURRENT_LIST_DIR}/../dependencies/Eigen/share/eigen3/cmake")

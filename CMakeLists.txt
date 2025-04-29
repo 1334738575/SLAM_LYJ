@@ -66,7 +66,6 @@ if(${OpenMP_CXX_FOUND})
     add_compile_options(${OpenMP_CXX_FLAGS})
     message("find OpenMP: ${OpenMP_CXX_LIBRARIES}")
     message("find OpenMP: ${OpenMP_CXX_FLAGS}")
-
 endif()
 
 #pcl
@@ -81,6 +80,10 @@ include_directories(${PCL_INCLUDE_DIRS}) #可能无法在visual studio中显示�
 # message("E:/anaconda3/Library/include/qt/QtGui")
 # message("E:/anaconda3/Library/include/qt/QtWidgets")
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+
+#GLEW
+find_package(Glew)
+include_directories(${GLEW_INCLUDE_DIRS})
 
 
 ###############################sub_projects####################################
