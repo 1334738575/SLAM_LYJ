@@ -62,11 +62,11 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 #openmp
 find_package(OpenMP REQUIRED) 
-if(${OpenMP_CXX_FOUND})
-    add_compile_options(${OpenMP_CXX_FLAGS})
-    message("find OpenMP: ${OpenMP_CXX_LIBRARIES}")
-    message("find OpenMP: ${OpenMP_CXX_FLAGS}")
-endif()
+# if(${OpenMP_CXX_FOUND})
+#     add_compile_options(${OpenMP_CXX_FLAGS})
+#     message("find OpenMP: ${OpenMP_CXX_LIBRARIES}")
+#     message("find OpenMP: ${OpenMP_CXX_FLAGS}")
+# endif()
 
 #pcl
 find_package(PCL)
@@ -85,6 +85,12 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 find_package(Glew)
 include_directories(${GLEW_INCLUDE_DIRS})
 
+#cuda
+enable_language(CUDA)
+find_package(CUDA)
+# message(FATAL_ERROR "cuda version:"${CUDA_INCLUDE_DIRS})
+include_directories(${CUDA_INCLUDE_DIRS})
+set(CMAKE_CUDA_ARCHITECTURES 89)
 
 ###############################sub_projects####################################
 #add source
