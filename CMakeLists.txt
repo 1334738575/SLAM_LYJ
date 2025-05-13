@@ -11,6 +11,7 @@ if(WIN32)
         # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /Ob2")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Od /Ob0")
         set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /DEBUG")
+        add_link_options(/DEBUG) #生成调试信息（测试在visual studio中有效）
     endif()
 elseif(LINUX)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g")
@@ -61,12 +62,11 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 #openmp
 find_package(OpenMP REQUIRED) 
-if(${OpenMP_CXX_FOUND})
-    add_compile_options(${OpenMP_CXX_FLAGS})
-    message("find OpenMP: ${OpenMP_CXX_LIBRARIES}")
-    message("find OpenMP: ${OpenMP_CXX_FLAGS}")
-
-endif()
+# if(${OpenMP_CXX_FOUND})
+#     add_compile_options(${OpenMP_CXX_FLAGS})
+#     message("find OpenMP: ${OpenMP_CXX_LIBRARIES}")
+#     message("find OpenMP: ${OpenMP_CXX_FLAGS}")
+# endif()
 
 #pcl
 find_package(PCL)
@@ -81,6 +81,16 @@ include_directories(${PCL_INCLUDE_DIRS}) #可能无法在visual studio中显示�
 # message("E:/anaconda3/Library/include/qt/QtWidgets")
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 
+#GLEW
+find_package(Glew)
+include_directories(${GLEW_INCLUDE_DIRS})
+
+#cuda
+enable_language(CUDA)
+find_package(CUDA)
+# message(FATAL_ERROR "cuda version:"${CUDA_INCLUDE_DIRS})
+include_directories(${CUDA_INCLUDE_DIRS})
+set(CMAKE_CUDA_ARCHITECTURES 89)
 
 ###############################sub_projects####################################
 #add source
