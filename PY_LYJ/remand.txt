@@ -1,0 +1,5 @@
+use SLAM_LYJ by pybind11
+1.install python
+2.install pybind11 (is related to version of python)
+3.pip install pyTest
+4.pip install mypy (for use stubgen to generate pyi)
