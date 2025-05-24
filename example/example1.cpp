@@ -162,6 +162,7 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testDiffuser();
     //SLAM_LYJ::testPolarGrid();
     //QT_LYJ::testOpenGLOnly();
-    SLAM_LYJ::testCUDA();
+    SLAM_LYJ::testOcTreeAndQuadTree();
+    //SLAM_LYJ::testCUDA();
     return 0;
 }
