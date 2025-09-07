@@ -57,7 +57,9 @@
         "string": "cpp",
         "core": "cpp",
         "eigen": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "qvboxlayout": "cpp",
+        "dense": "cpp"
     },
     "python.languageServer": "Pylance"
 }

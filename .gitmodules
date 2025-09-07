@@ -1,9 +1,27 @@
-[submodule "src"]
-	path = src
-	url = https://github.com/1334738575/SLAM_LYJ_src.git
 [submodule "cmake"]
 	path = cmake
 	url = https://github.com/1334738575/SLAM_LYJ_CMAKE.git
-[submodule "viewer"]
-	path = viewer
+[submodule "SLAM_LYJ_COMMON"]
+	path = SLAM_LYJ_COMMON
+	url = https://github.com/1334738575/SLAM_LYJ_COMMON.git
+[submodule "SLAM_LYJ_optimize"]
+	path = SLAM_LYJ_optimize
+	url = https://github.com/1334738575/SLAM_LYJ_optimize.git
+[submodule "SLAM_LYJ_pathplan"]
+	path = SLAM_LYJ_pathplan
+	url = https://github.com/1334738575/SLAM_LYJ_pathplan.git
+[submodule "ImageProcess_LYJ"]
+	path = ImageProcess_LYJ
+	url = https://github.com/1334738575/ImageProcess_LYJ.git
+[submodule "SLAM_LYJ_vulkan"]
+	path = SLAM_LYJ_vulkan
+	url = https://github.com/1334738575/SLAM_LYJ_vulkan.git
+[submodule "SLAM_LYJ_CUDA"]
+	path = SLAM_LYJ_CUDA
+	url = https://github.com/1334738575/SLAM_LYJ_CUDA.git
+[submodule "SLAM_LYJ_src"]
+	path = SLAM_LYJ_src
+	url = https://github.com/1334738575/SLAM_LYJ_src.git
+[submodule "SLAM_LYJ_qt"]
+	path = SLAM_LYJ_qt
 	url = https://github.com/1334738575/SLAM_LYJ_qt.git
