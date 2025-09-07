@@ -54,7 +54,10 @@
         "ratio": "cpp",
         "xfunctional": "cpp",
         "xthread": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "core": "cpp",
+        "eigen": "cpp",
+        "ctime": "cpp"
     },
     "python.languageServer": "Pylance"
 }
