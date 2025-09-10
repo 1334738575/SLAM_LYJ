@@ -59,7 +59,8 @@
         "eigen": "cpp",
         "ctime": "cpp",
         "qvboxlayout": "cpp",
-        "dense": "cpp"
+        "dense": "cpp",
+        "fstream": "cpp"
     },
     "python.languageServer": "Pylance"
 }
