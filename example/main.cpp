@@ -1,6 +1,7 @@
 #include <iostream>
-//#include "SLAM_LYJ.h"
+#include "SLAM_LYJ.h"
 #include "QT_LYJ.h"
+#include <SLAM_LYJ_src_Include.h>
 #include <Eigen/Core>
 #include <Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -394,7 +395,7 @@ int main2(int argc, char* argv[])
         ImageProcess_LYJ::ImageExtractData frame;
         frame.cam = &cam;
         frame.img = img;
-        ImageProcess_LYJ::extractORBFeature(&frame);
+        ImageProcess_LYJ::extractFeature(&frame);
         std::cout << "key point size: " << frame.kps_.size() << std::endl;
         cv::drawKeypoints(img, frame.kps_, img, cv::Scalar(255, 0, 0));
         cv::imshow("keypoints", img);
@@ -405,7 +406,7 @@ int main2(int argc, char* argv[])
         frame2.Tcw.gett() = Eigen::Vector3d(0.1, 0.1, 0.1);
         frame2.cam = &cam;
         frame2.img = img2;
-        ImageProcess_LYJ::extractORBFeature(&frame2);
+        ImageProcess_LYJ::extractFeature(&frame2);
         std::cout << "key point2 size: " << frame2.kps_.size() << std::endl;
         cv::drawKeypoints(img2, frame2.kps_, img2, cv::Scalar(255, 0, 0));
         cv::imshow("keypoints2", img2);
@@ -414,7 +415,7 @@ int main2(int argc, char* argv[])
         ImageProcess_LYJ::ImageMatchData matchResult;
         matchResult.usePointMatch = true;
         matchResult.debugPath = "D:/tmp/imageProcess/match/";
-        ImageProcess_LYJ::matchORBFeature(&frame, &frame2, &matchResult);
+        ImageProcess_LYJ::matchFeature(&frame, &frame2, &matchResult);
     }
 
     //if (false)
@@ -743,7 +744,7 @@ int main2(int argc, char* argv[])
         frame.cam = &cam;
         frame.img = img;
         funcReadTcw(dataPath2 + std::to_string(id1) + ".txt", frame.Tcw);
-        ImageProcess_LYJ::extractORBFeature(&frame);
+        ImageProcess_LYJ::extractFeature(&frame);
         std::cout << "key point size: " << frame.kps_.size() << std::endl;
         // cv::drawKeypoints(img, frame.kps_, img, cv::Scalar(255, 0, 0));
         // cv::imshow("keypoints", img);
@@ -754,7 +755,7 @@ int main2(int argc, char* argv[])
         frame2.cam = &cam;
         frame2.img = img2;
         funcReadTcw(dataPath2 + std::to_string(id2) + ".txt", frame2.Tcw);
-        ImageProcess_LYJ::extractORBFeature(&frame2);
+        ImageProcess_LYJ::extractFeature(&frame2);
         std::cout << "key point2 size: " << frame2.kps_.size() << std::endl;
         // cv::drawKeypoints(img2, frame2.kps_, img2, cv::Scalar(255, 0, 0));
         // cv::imshow("keypoints2", img2);
@@ -763,7 +764,7 @@ int main2(int argc, char* argv[])
         ImageProcess_LYJ::ImageMatchData matchResult;
         matchResult.usePointMatch = true;
         matchResult.debugPath = "D:/tmp/imageProcess/match/";
-        ImageProcess_LYJ::matchORBFeature(&frame, &frame2, &matchResult);
+        ImageProcess_LYJ::matchFeature(&frame, &frame2, &matchResult);
 
         ImageProcess_LYJ::ImageTriangleData triangleResult;
         ImageProcess_LYJ::reconstructTwo(&frame, &frame2, &matchResult, &triangleResult);
@@ -876,12 +877,21 @@ int main(int argc, char* argv[]){
     //SLAM_LYJ::testGlobalOption();
 	//SLAM_LYJ::testFlann();
 	//SLAM_LYJ::testPCL();
-    QT_LYJ::testQT(argc, argv);
+    //QT_LYJ::testQT(argc, argv);
     //SLAM_LYJ::testPatchMatch();
     //SLAM_LYJ::testDiffuser();
     //SLAM_LYJ::testPolarGrid();
     //QT_LYJ::testOpenGLOnly();
     //SLAM_LYJ::testOcTreeAndQuadTree();
     //SLAM_LYJ::testCUDA();
+    //return 0;
+    //QT_LYJ::debugWindows(argc, argv);
+    //return 0;
+    SLAM_LYJ_src::ProVPOpt opt;
+    opt.imgDir = "D:/tmp/testImages";
+    opt.priTcwDir = "D:/tmp/testTcws";
+    opt.camFile = "D:/tmp/testCam.txt";
+    SLAM_LYJ_src::reconstructVisualPoint(opt);
+    QT_LYJ::debugWindows(argc, argv);
     return 0;
 }
