@@ -450,121 +450,121 @@ int main2(int argc, char* argv[])
     SLAM_LYJ::BaseTriMesh btm;
     SLAM_LYJ::readPLYMesh("D:/tmp/res_mesh.ply", btm);
     // SLAM_LYJ::writePLYMesh("D:/tmp/copy3.ply", btm);
-    if (false)
-    {
-        std::vector<Eigen::Vector3f> vertexs = btm.getVertexs();
-        std::vector<BaseTriFace> fs = btm.getFaces();
-        btm.enableFCenters();
-        btm.calculateFCenters();
-        btm.enableFNormals();
-        btm.calculateFNormals();
-        std::string imgName = "D:/tmp/images/7.png";
-        cv::Mat img = cv::imread(imgName);
-        // cv::imshow("img", img);
-        // cv::waitKey();
-        /*
-        * 765.955       0    1024
-          0 766.549    1024
-          0       0       1
-        */
-        float cam[4] = { 765.955, 766.549, 1024, 1024 };
-        std::vector<double> camd = { 765.955, 766.549, 1024, 1024 };
-        int w = img.cols;
-        int h = img.rows;
-        PinholeCamera pinCam(2048, 2048, camd);
+    //if (false)
+    //{
+    //    std::vector<Eigen::Vector3f> vertexs = btm.getVertexs();
+    //    std::vector<BaseTriFace> fs = btm.getFaces();
+    //    btm.enableFCenters();
+    //    btm.calculateFCenters();
+    //    btm.enableFNormals();
+    //    btm.calculateFNormals();
+    //    std::string imgName = "D:/tmp/images/7.png";
+    //    cv::Mat img = cv::imread(imgName);
+    //    // cv::imshow("img", img);
+    //    // cv::waitKey();
+    //    /*
+    //    * 765.955       0    1024
+    //      0 766.549    1024
+    //      0       0       1
+    //    */
+    //    float cam[4] = { 765.955, 766.549, 1024, 1024 };
+    //    std::vector<double> camd = { 765.955, 766.549, 1024, 1024 };
+    //    int w = img.cols;
+    //    int h = img.rows;
+    //    PinholeCamera pinCam(2048, 2048, camd);
 
-        Pose3D TcwP;
-        TcwP.getR() << 0.00774473, 0.0383352, 0.999235,
-            -0.0480375, 0.998125, -0.0379202,
-            -0.998815, -0.047707, 0.00957183;
-        TcwP.gett() << -0.0615093,
-            -0.16702,
-            0.011672;
-        Eigen::Vector3d p1(0, 0, 10);
-        Eigen::Vector3d p2(w, 0, 10);
-        Eigen::Vector3d p3(w, h, 10);
-        Eigen::Vector3d p4(0, h, 10);
-        Eigen::Vector3d P0(0, 0, 0);
-        Eigen::Vector3d P1;
-        Eigen::Vector3d P2;
-        Eigen::Vector3d P3;
-        Eigen::Vector3d P4;
-        pinCam.image2World(p1, P1);
-        pinCam.image2World(p2, P2);
-        pinCam.image2World(p3, P3);
-        pinCam.image2World(p4, P4);
-        Pose3D Twc = TcwP.inversed();
-        P0 = Twc * P0;
-        P1 = Twc * P1;
-        P2 = Twc * P2;
-        P3 = Twc * P3;
-        P4 = Twc * P4;
-        BaseTriMesh btmTmp;
-        std::vector<Eigen::Vector3f> psTmp;
-        psTmp.push_back(P0.cast<float>());
-        psTmp.push_back(P1.cast<float>());
-        psTmp.push_back(P2.cast<float>());
-        psTmp.push_back(P3.cast<float>());
-        psTmp.push_back(P4.cast<float>());
-        std::vector<BaseTriFace> fsTmp;
-        fsTmp.emplace_back(0, 1, 2);
-        fsTmp.emplace_back(0, 2, 3);
-        fsTmp.emplace_back(0, 3, 4);
-        fsTmp.emplace_back(0, 4, 1);
-        btmTmp.setVertexs(psTmp);
-        btmTmp.setFaces(fsTmp);
-        writePLYMesh("D:/tmp/cam.ply", btmTmp);
+    //    Pose3D TcwP;
+    //    TcwP.getR() << 0.00774473, 0.0383352, 0.999235,
+    //        -0.0480375, 0.998125, -0.0379202,
+    //        -0.998815, -0.047707, 0.00957183;
+    //    TcwP.gett() << -0.0615093,
+    //        -0.16702,
+    //        0.011672;
+    //    Eigen::Vector3d p1(0, 0, 10);
+    //    Eigen::Vector3d p2(w, 0, 10);
+    //    Eigen::Vector3d p3(w, h, 10);
+    //    Eigen::Vector3d p4(0, h, 10);
+    //    Eigen::Vector3d P0(0, 0, 0);
+    //    Eigen::Vector3d P1;
+    //    Eigen::Vector3d P2;
+    //    Eigen::Vector3d P3;
+    //    Eigen::Vector3d P4;
+    //    pinCam.image2World(p1, P1);
+    //    pinCam.image2World(p2, P2);
+    //    pinCam.image2World(p3, P3);
+    //    pinCam.image2World(p4, P4);
+    //    Pose3D Twc = TcwP.inversed();
+    //    P0 = Twc * P0;
+    //    P1 = Twc * P1;
+    //    P2 = Twc * P2;
+    //    P3 = Twc * P3;
+    //    P4 = Twc * P4;
+    //    BaseTriMesh btmTmp;
+    //    std::vector<Eigen::Vector3f> psTmp;
+    //    psTmp.push_back(P0.cast<float>());
+    //    psTmp.push_back(P1.cast<float>());
+    //    psTmp.push_back(P2.cast<float>());
+    //    psTmp.push_back(P3.cast<float>());
+    //    psTmp.push_back(P4.cast<float>());
+    //    std::vector<BaseTriFace> fsTmp;
+    //    fsTmp.emplace_back(0, 1, 2);
+    //    fsTmp.emplace_back(0, 2, 3);
+    //    fsTmp.emplace_back(0, 3, 4);
+    //    fsTmp.emplace_back(0, 4, 1);
+    //    btmTmp.setVertexs(psTmp);
+    //    btmTmp.setFaces(fsTmp);
+    //    writePLYMesh("D:/tmp/cam.ply", btmTmp);
 
-        float* Pws = vertexs[0].data();
-        unsigned int PSize = btm.getVn();
-        float* centers = btm.getFCenters()[0].data();
-        float* fNormals = btm.getFNormals()[0].data();
-        unsigned int* faces = fs[0].vId_;
-        unsigned int fSize = btm.getFn();
-        float* camParams = cam;
-        CUDA_LYJ::ProHandle proHandle = CUDA_LYJ::initProjector(Pws, PSize, centers, fNormals, faces, fSize, camParams, w, h);
+    //    float* Pws = vertexs[0].data();
+    //    unsigned int PSize = btm.getVn();
+    //    float* centers = btm.getFCenters()[0].data();
+    //    float* fNormals = btm.getFNormals()[0].data();
+    //    unsigned int* faces = fs[0].vId_;
+    //    unsigned int fSize = btm.getFn();
+    //    float* camParams = cam;
+    //    CUDA_LYJ::ProHandle proHandle = CUDA_LYJ::initProjector(Pws, PSize, centers, fNormals, faces, fSize, camParams, w, h);
 
-        Eigen::Matrix<float, 3, 4> Tcw34;
-        Tcw34.block(0, 0, 3, 3) = TcwP.getR().cast<float>();
-        Tcw34.block(0, 3, 3, 1) = TcwP.gett().cast<float>();
-        float* Tcw = Tcw34.data();
-        cv::Mat depthsM(w, h, CV_32FC1);
-        float* depths = (float*)depthsM.data;
-        std::vector<char> allvisiblePIds(PSize, 0);
-        std::vector<char> allvisibleFIds(fSize, 0);
-        std::vector<unsigned int> fIdss(w * h, 0);
-        unsigned int* fIds = fIdss.data();
-        char* allVisiblePIds = allvisiblePIds.data();
-        char* allVisibleFIds = allvisibleFIds.data();
-        CUDA_LYJ::project(proHandle, Tcw, depths, fIds, allVisiblePIds, allVisibleFIds);
-        cv::Mat depthsMShow(w, h, CV_8UC1);
-        depthsMShow.setTo(cv::Scalar(0));
-        std::vector<Eigen::Vector3f> Pcs;
-        Pcs.reserve(w * h);
-        for (int i = 0; i < h; ++i)
-        {
-            for (int j = 0; j < w; ++j)
-            {
-                float d = depths[i * w + j];
-                if (d == FLT_MAX)
-                {
-                    depthsMShow.at<uchar>(i, j) = 0;
-                    continue;
-                }
-                Eigen::Vector3d Pc;
-                pinCam.image2World(j, i, d, Pc);
-                Pcs.push_back(Pc.cast<float>());
-                depthsMShow.at<uchar>(i, j) = d * 20 < 255 ? (char)(d * 20) : 255;
-            }
-        }
-        cv::imshow("depth", depthsMShow);
-        cv::waitKey();
-        BaseTriMesh btmPcs;
-        btmPcs.setVertexs(Pcs);
-        writePLYMesh("D:/tmp/BtmPcs.ply", btmPcs);
+    //    Eigen::Matrix<float, 3, 4> Tcw34;
+    //    Tcw34.block(0, 0, 3, 3) = TcwP.getR().cast<float>();
+    //    Tcw34.block(0, 3, 3, 1) = TcwP.gett().cast<float>();
+    //    float* Tcw = Tcw34.data();
+    //    cv::Mat depthsM(w, h, CV_32FC1);
+    //    float* depths = (float*)depthsM.data;
+    //    std::vector<char> allvisiblePIds(PSize, 0);
+    //    std::vector<char> allvisibleFIds(fSize, 0);
+    //    std::vector<unsigned int> fIdss(w * h, 0);
+    //    unsigned int* fIds = fIdss.data();
+    //    char* allVisiblePIds = allvisiblePIds.data();
+    //    char* allVisibleFIds = allvisibleFIds.data();
+    //    CUDA_LYJ::project(proHandle, Tcw, depths, fIds, allVisiblePIds, allVisibleFIds);
+    //    cv::Mat depthsMShow(w, h, CV_8UC1);
+    //    depthsMShow.setTo(cv::Scalar(0));
+    //    std::vector<Eigen::Vector3f> Pcs;
+    //    Pcs.reserve(w * h);
+    //    for (int i = 0; i < h; ++i)
+    //    {
+    //        for (int j = 0; j < w; ++j)
+    //        {
+    //            float d = depths[i * w + j];
+    //            if (d == FLT_MAX)
+    //            {
+    //                depthsMShow.at<uchar>(i, j) = 0;
+    //                continue;
+    //            }
+    //            Eigen::Vector3d Pc;
+    //            pinCam.image2World(j, i, d, Pc);
+    //            Pcs.push_back(Pc.cast<float>());
+    //            depthsMShow.at<uchar>(i, j) = d * 20 < 255 ? (char)(d * 20) : 255;
+    //        }
+    //    }
+    //    cv::imshow("depth", depthsMShow);
+    //    cv::waitKey();
+    //    BaseTriMesh btmPcs;
+    //    btmPcs.setVertexs(Pcs);
+    //    writePLYMesh("D:/tmp/BtmPcs.ply", btmPcs);
 
-        CUDA_LYJ::release(proHandle);
-    }
+    //    CUDA_LYJ::release(proHandle);
+    //}
     if (false)
     {
         Eigen::Vector3d minP(-50, -50, -50);
@@ -887,11 +887,16 @@ int main(int argc, char* argv[]){
     //return 0;
     //QT_LYJ::debugWindows(argc, argv);
     //return 0;
-    SLAM_LYJ_src::ProVPOpt opt;
+    SLAM_LYJ_src::ProcessOption opt;
     opt.imgDir = "D:/tmp/testImages";
     opt.priTcwDir = "D:/tmp/testTcws";
     opt.camFile = "D:/tmp/testCam.txt";
-    SLAM_LYJ_src::reconstructVisualPoint(opt);
+    opt.vocPath = "D:/tmp/voc.gz";
+    opt.writeVoc = false;
+    //opt.readCache = true;
+    opt.meshPath = "D:/tmp/res_mesh.ply";
+    //SLAM_LYJ_src::reconstructVisualPoint(opt);
+    SLAM_LYJ_src::reconstructVisualWithMesh(opt);
     QT_LYJ::debugWindows(argc, argv);
     return 0;
 }
