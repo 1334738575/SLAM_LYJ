@@ -895,8 +895,8 @@ int main(int argc, char* argv[]){
     opt.writeVoc = false;
     //opt.readCache = true;
     opt.meshPath = "D:/tmp/res_mesh.ply";
-    //SLAM_LYJ_src::reconstructVisualPoint(opt);
-    SLAM_LYJ_src::reconstructVisualWithMesh(opt);
+    SLAM_LYJ_src::reconstructVisualPoint(opt);
+    //SLAM_LYJ_src::reconstructVisualWithMesh(opt);
     QT_LYJ::debugWindows(argc, argv);
     return 0;
 }
