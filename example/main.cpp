@@ -893,6 +893,8 @@ int main(int argc, char* argv[]){
     opt.camFile = "D:/tmp/testCam.txt";
     opt.vocPath = "D:/tmp/voc.gz";
     opt.writeVoc = false;
+    opt.imageMatchOpt.bTriangle = false;
+    opt.imageMatchOpt.pointMatchCheck = true;
     //opt.readCache = true;
     opt.meshPath = "D:/tmp/res_mesh.ply";
     SLAM_LYJ_src::reconstructVisualPoint(opt);
