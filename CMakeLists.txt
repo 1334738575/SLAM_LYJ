@@ -68,6 +68,7 @@ list(APPEND BINDIRECTORIES "E:/anaconda3/pkgs/icu-73.1-h6c2663c_0/Library/bin;")
 list(APPEND BINDIRECTORIES "E:/anaconda3/pkgs/zstd-1.5.5-hd43e919_2/Library/bin;")
 list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/flann/bin\;")
 list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/lz4/bin\;")
+list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/libjpeg/bin\;")
 list(APPEND CMAKE_MODULE_PATH "D:/testLyj/GLM/glm-1.0.1")
 find_package(glm)
 # #openmp

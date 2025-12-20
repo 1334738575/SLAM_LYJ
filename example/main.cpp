@@ -894,7 +894,7 @@ int main(int argc, char* argv[]){
     opt.vocPath = "D:/tmp/voc.gz";
     opt.writeVoc = false;
     opt.imageMatchOpt.bTriangle = false;
-    opt.imageMatchOpt.pointMatchCheck = true;
+    opt.imageMatchOpt.pointMatchCheck = false;
     //opt.readCache = true;
     opt.meshPath = "D:/tmp/res_mesh.ply";
     SLAM_LYJ_src::reconstructVisualPoint(opt);
