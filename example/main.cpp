@@ -710,6 +710,8 @@ int main2(int argc, char* argv[])
             btmtmp.setVertexs(PcsTmp);
             SLAM_LYJ::writePLYMesh("D:/tmp/PcsTmp.ply", btmtmp);
             cv::imwrite("D:/tmp/depth.png", mmmd);
+            cv::imshow("dVK", mmmd);
+            cv::waitKey();
         }
 
         projectVK.release();
@@ -846,7 +848,7 @@ void test() {
 }
 
 int main(int argc, char* argv[]){
-    //main2(argc, argv);
+    main2(argc, argv);
     //test();
     //testGrowTemplate();
     std::cout<<"Hello SLAM_LYJ!" <<std::endl;
@@ -884,7 +886,7 @@ int main(int argc, char* argv[]){
     //QT_LYJ::testOpenGLOnly();
     //SLAM_LYJ::testOcTreeAndQuadTree();
     //SLAM_LYJ::testCUDA();
-    //return 0;
+    return 0;
     //QT_LYJ::debugWindows(argc, argv);
     //return 0;
     SLAM_LYJ_src::ProcessOption opt;
