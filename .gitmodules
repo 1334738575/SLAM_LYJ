@@ -25,3 +25,6 @@
 [submodule "SLAM_LYJ_qt"]
 	path = SLAM_LYJ_qt
 	url = https://github.com/1334738575/SLAM_LYJ_qt.git
+[submodule "TextureFusion_LYJ"]
+	path = TextureFusion_LYJ
+	url = https://github.com/1334738575/TextureFusion_LYJ.git

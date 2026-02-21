@@ -848,7 +848,7 @@ void test() {
 }
 
 int main(int argc, char* argv[]){
-    main2(argc, argv);
+    //main2(argc, argv);
     //test();
     //testGrowTemplate();
     std::cout<<"Hello SLAM_LYJ!" <<std::endl;
@@ -886,7 +886,7 @@ int main(int argc, char* argv[]){
     //QT_LYJ::testOpenGLOnly();
     //SLAM_LYJ::testOcTreeAndQuadTree();
     //SLAM_LYJ::testCUDA();
-    return 0;
+    //return 0;
     //QT_LYJ::debugWindows(argc, argv);
     //return 0;
     SLAM_LYJ_src::ProcessOption opt;
@@ -898,9 +898,10 @@ int main(int argc, char* argv[]){
     opt.imageMatchOpt.bTriangle = false;
     opt.imageMatchOpt.pointMatchCheck = false;
     //opt.readCache = true;
+    opt.threadNum = 1;
     opt.meshPath = "D:/tmp/res_mesh.ply";
-    SLAM_LYJ_src::reconstructVisualPoint(opt);
-    //SLAM_LYJ_src::reconstructVisualWithMesh(opt);
+    //SLAM_LYJ_src::reconstructVisualPoint(opt);
+    SLAM_LYJ_src::reconstructVisualWithMesh(opt);
     QT_LYJ::debugWindows(argc, argv);
     return 0;
 }
