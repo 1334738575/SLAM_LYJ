@@ -181,9 +181,9 @@ void generate_cuboid_surface_points(
     std::vector<Eigen::Vector3f> Ps(num_points);
     for (int i = 0; i < num_points; ++i)
         Ps[i] = Eigen::Vector3f(points[i].x, points[i].y, points[i].z);
-    SLAM_LYJ::BaseTriMesh btmPoints;
+    COMMON_LYJ::BaseTriMesh btmPoints;
     btmPoints.setVertexs(Ps);
-    SLAM_LYJ::writePLYMesh(filename, btmPoints);
+    COMMON_LYJ::writePLYMesh(filename, btmPoints);
 
     std::cout << "已生成 " << points.size() << " 个点至 " << filename << std::endl;
 }
@@ -263,8 +263,8 @@ bool project_point(const Point3DOut& world_point,
 
 int generateObs()
 {
-    SLAM_LYJ::BaseTriMesh btmPoints;
-    SLAM_LYJ::readPLYMesh("D:/tmp/cuboid_points.ply", btmPoints);
+    COMMON_LYJ::BaseTriMesh btmPoints;
+    COMMON_LYJ::readPLYMesh("D:/tmp/cuboid_points.ply", btmPoints);
     // 加载3D点（示例数据，实际应从文件读取）
     std::vector<Point3DOut> points(btmPoints.getVn());
     const auto& Ps = btmPoints.getVertexs();
@@ -278,7 +278,7 @@ int generateObs()
     // 生成相机位姿
     PoseOut pose1, pose2;
     generate_camera_poses(pose1, pose2);
-    SLAM_LYJ::Pose3D Twc1;
+    COMMON_LYJ::Pose3D Twc1;
     for (int i = 0; i < 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
@@ -287,7 +287,7 @@ int generateObs()
         }
         Twc1.gett()(i) = pose1.t[i];
     }
-    SLAM_LYJ::Pose3D Twc2;
+    COMMON_LYJ::Pose3D Twc2;
     for (int i = 0; i < 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
@@ -296,9 +296,9 @@ int generateObs()
         }
         Twc2.gett()(i) = pose2.t[i];
     }
-    SLAM_LYJ::Pose3D Tcw1 = Twc1.inversed();
-    SLAM_LYJ::Pose3D Tcw2 = Twc2.inversed();
-    SLAM_LYJ::PinholeCamera cam(IMAGE_WIDTH, IMAGE_HEIGHT, fx, fy, cx, cy);
+    COMMON_LYJ::Pose3D Tcw1 = Twc1.inversed();
+    COMMON_LYJ::Pose3D Tcw2 = Twc2.inversed();
+    COMMON_LYJ::PinholeCamera cam(IMAGE_WIDTH, IMAGE_HEIGHT, fx, fy, cx, cy);
     COMMON_LYJ::drawCam("D:/tmp/cam1.ply", cam, Twc1, 10);
     COMMON_LYJ::drawCam("D:/tmp/cam2.ply", cam, Twc2, 10);
     COMMON_LYJ::writeT34("D:/tmp/Tcw1.txt", Tcw1);
@@ -381,12 +381,12 @@ int main2(int argc, char* argv[])
     ////test_optimize_UV_Pose3d_P3d2_v2();
     // return 0;
     std::cout << "start test" << std::endl;
-    using namespace SLAM_LYJ;
+    using namespace COMMON_LYJ;
 
     if (false)
     {
         std::vector<double> camd = { 765.955, 766.549, 1024, 1024 };
-        SLAM_LYJ::PinholeCamera cam(2048, 2048, camd);
+        COMMON_LYJ::PinholeCamera cam(2048, 2048, camd);
 
         cv::Mat img = cv::imread("D:/tmp/images/7.png", 0);
         cv::pyrDown(img, img);
@@ -447,9 +447,9 @@ int main2(int argc, char* argv[])
         // }
         // return 0;
     }
-    SLAM_LYJ::BaseTriMesh btm;
-    SLAM_LYJ::readPLYMesh("D:/tmp/res_mesh.ply", btm);
-    // SLAM_LYJ::writePLYMesh("D:/tmp/copy3.ply", btm);
+    COMMON_LYJ::BaseTriMesh btm;
+    COMMON_LYJ::readPLYMesh("D:/tmp/res_mesh.ply", btm);
+    // COMMON_LYJ::writePLYMesh("D:/tmp/copy3.ply", btm);
     //if (false)
     //{
     //    std::vector<Eigen::Vector3f> vertexs = btm.getVertexs();
@@ -602,7 +602,7 @@ int main2(int argc, char* argv[])
     if (true)
     {
         // data
-        SLAM_LYJ::BaseTriMesh btmVulkan = btm;
+        COMMON_LYJ::BaseTriMesh btmVulkan = btm;
         const auto& vertexs = btmVulkan.getVertexs();
         const auto& faces = btmVulkan.getFaces();
         btmVulkan.enableFCenters();
@@ -624,7 +624,7 @@ int main2(int argc, char* argv[])
         TcwP.gett() << -0.0615093,
             -0.16702,
             0.011672;
-        SLAM_LYJ::PinholeCamera cam(w, h, Kd);
+        COMMON_LYJ::PinholeCamera cam(w, h, Kd);
         COMMON_LYJ::drawCam("D:/tmp/camVulkan.ply", cam, TcwP.inversed(), 10);
         Eigen::Matrix<float, 3, 4> T;
         T.block(0, 0, 3, 3) = TcwP.getR().cast<float>();
@@ -638,7 +638,7 @@ int main2(int argc, char* argv[])
         std::vector<char> PValidsOut(vn, 0);
         std::vector<char> fValidsOut(fn, 0);
         projectVK.project(T.data(), depthsOut.data(), fIdsOut.data(), PValidsOut.data(), fValidsOut.data(), 0, 30, 0.0, 0.1);
-        SLAM_LYJ::Pose3D Tcw2;
+        COMMON_LYJ::Pose3D Tcw2;
         COMMON_LYJ::readT34("D:/tmp/texture_data/RT_61.txt", Tcw2);
         COMMON_LYJ::drawCam("D:/tmp/camVulkan.ply", cam, Tcw2.inversed(), 10);
         Eigen::Matrix<float, 3, 4> T2;
@@ -654,9 +654,9 @@ int main2(int argc, char* argv[])
                     continue;
                 retPs.push_back(vertexs[i]);
             }
-            SLAM_LYJ::BaseTriMesh btmTmp;
+            COMMON_LYJ::BaseTriMesh btmTmp;
             btmTmp.setVertexs(retPs);
-            SLAM_LYJ::writePLYMesh("D:/tmp/checkV.ply", btmTmp);
+            COMMON_LYJ::writePLYMesh("D:/tmp/checkV.ply", btmTmp);
             std::vector<Eigen::Vector3f> retFs;
             for (int i = 0; i < fn; ++i)
             {
@@ -664,9 +664,9 @@ int main2(int argc, char* argv[])
                     continue;
                 retFs.push_back(fCenters[i]);
             }
-            SLAM_LYJ::BaseTriMesh btmTmp2;
+            COMMON_LYJ::BaseTriMesh btmTmp2;
             btmTmp2.setVertexs(retFs);
-            SLAM_LYJ::writePLYMesh("D:/tmp/checkF.ply", btmTmp2);
+            COMMON_LYJ::writePLYMesh("D:/tmp/checkF.ply", btmTmp2);
         }
         {
             std::vector<Eigen::Vector3f> fccc;
@@ -680,9 +680,9 @@ int main2(int argc, char* argv[])
                     fccc.push_back(fCenters[fid]);
                 }
             }
-            SLAM_LYJ::BaseTriMesh btmtmp;
+            COMMON_LYJ::BaseTriMesh btmtmp;
             btmtmp.setVertexs(fccc);
-            SLAM_LYJ::writePLYMesh("D:/tmp/fccc.ply", btmtmp);
+            COMMON_LYJ::writePLYMesh("D:/tmp/fccc.ply", btmtmp);
         }
         {
             std::vector<Eigen::Vector3f> PcsTmp;
@@ -706,9 +706,9 @@ int main2(int argc, char* argv[])
                     mmmd.at<uchar>(i, j) = (uchar)dddc;
                 }
             }
-            SLAM_LYJ::BaseTriMesh btmtmp;
+            COMMON_LYJ::BaseTriMesh btmtmp;
             btmtmp.setVertexs(PcsTmp);
-            SLAM_LYJ::writePLYMesh("D:/tmp/PcsTmp.ply", btmtmp);
+            COMMON_LYJ::writePLYMesh("D:/tmp/PcsTmp.ply", btmtmp);
             cv::imwrite("D:/tmp/depth.png", mmmd);
             cv::imshow("dVK", mmmd);
             cv::waitKey();
@@ -722,13 +722,13 @@ int main2(int argc, char* argv[])
     if (false)
     {
         std::vector<double> camd = { 765.955, 766.549, 1024, 1024 };
-        SLAM_LYJ::PinholeCamera cam(2048, 2048, camd);
+        COMMON_LYJ::PinholeCamera cam(2048, 2048, camd);
 
         std::string dataPath = "D:/tmp/images/";
         std::string dataPath2 = "D:/tmp/texture_data/RT_";
         int id1 = 47;
         int id2 = 49;
-        auto funcReadTcw = [](const std::string& _file, SLAM_LYJ::Pose3D& Tcw)
+        auto funcReadTcw = [](const std::string& _file, COMMON_LYJ::Pose3D& Tcw)
             {
                 std::ifstream f(_file);
                 if (!f.is_open())
@@ -777,9 +777,9 @@ int main2(int argc, char* argv[])
                 continue;
             PwsTir.push_back(triangleResult.Ps[i].cast<float>());
         }
-        SLAM_LYJ::BaseTriMesh btmTri;
+        COMMON_LYJ::BaseTriMesh btmTri;
         btmTri.setVertexs(PwsTir);
-        SLAM_LYJ::writePLYMesh("D:/tmp/tri.ply", btmTri);
+        COMMON_LYJ::writePLYMesh("D:/tmp/tri.ply", btmTri);
     }
 
     std::cout << "end test" << std::endl;
@@ -852,40 +852,40 @@ int main(int argc, char* argv[]){
     //test();
     //testGrowTemplate();
     std::cout<<"Hello SLAM_LYJ!" <<std::endl;
-    //std::cout<< "Current version is: " << SLAM_LYJ::getVersion() << std::endl;
-    //SLAM_LYJ::testCeres();
-    //SLAM_LYJ::testEigen();
-    //SLAM_LYJ::testOpenCV();
-    //SLAM_LYJ::testThreadPool();
-    //SLAM_LYJ::testVulkan();
-    //SLAM_LYJ::testKdTree();
-    //SLAM_LYJ::testPoint();
-    //SLAM_LYJ::testArchive();
-    // SLAM_LYJ::testTensor();
-    //SLAM_LYJ::testCommonAlgorithm();
-    //SLAM_LYJ::testRANSAC();
-    //SLAM_LYJ::testLine();
-    //SLAM_LYJ::testPlane();
-    //SLAM_LYJ::testPose();
-    //SLAM_LYJ::testCamera();
-    //SLAM_LYJ::testTriangler();
-    //SLAM_LYJ::testOptimizer();
-    //SLAM_LYJ::testBitFlagVec();
-    //SLAM_LYJ::testFrame();
-    //SLAM_LYJ::testIncrementalAgvAndVar();
-    //SLAM_LYJ::testGrid();
-    //SLAM_LYJ::testSTLPlus();
-    //SLAM_LYJ::testBuffer();
-    //SLAM_LYJ::testGlobalOption();
-	//SLAM_LYJ::testFlann();
-	//SLAM_LYJ::testPCL();
+    //std::cout<< "Current version is: " << COMMON_LYJ::getVersion() << std::endl;
+    //COMMON_LYJ::testCeres();
+    //COMMON_LYJ::testEigen();
+    //COMMON_LYJ::testOpenCV();
+    //COMMON_LYJ::testThreadPool();
+    //COMMON_LYJ::testVulkan();
+    //COMMON_LYJ::testKdTree();
+    //COMMON_LYJ::testPoint();
+    //COMMON_LYJ::testArchive();
+    // COMMON_LYJ::testTensor();
+    //COMMON_LYJ::testCommonAlgorithm();
+    //COMMON_LYJ::testRANSAC();
+    //COMMON_LYJ::testLine();
+    //COMMON_LYJ::testPlane();
+    //COMMON_LYJ::testPose();
+    //COMMON_LYJ::testCamera();
+    //COMMON_LYJ::testTriangler();
+    //COMMON_LYJ::testOptimizer();
+    //COMMON_LYJ::testBitFlagVec();
+    //COMMON_LYJ::testFrame();
+    //COMMON_LYJ::testIncrementalAgvAndVar();
+    //COMMON_LYJ::testGrid();
+    //COMMON_LYJ::testSTLPlus();
+    //COMMON_LYJ::testBuffer();
+    //COMMON_LYJ::testGlobalOption();
+	//COMMON_LYJ::testFlann();
+	//COMMON_LYJ::testPCL();
     //QT_LYJ::testQT(argc, argv);
-    //SLAM_LYJ::testPatchMatch();
-    //SLAM_LYJ::testDiffuser();
-    //SLAM_LYJ::testPolarGrid();
+    //COMMON_LYJ::testPatchMatch();
+    //COMMON_LYJ::testDiffuser();
+    //COMMON_LYJ::testPolarGrid();
     //QT_LYJ::testOpenGLOnly();
-    //SLAM_LYJ::testOcTreeAndQuadTree();
-    //SLAM_LYJ::testCUDA();
+    //COMMON_LYJ::testOcTreeAndQuadTree();
+    //COMMON_LYJ::testCUDA();
     //return 0;
     //QT_LYJ::debugWindows(argc, argv);
     //return 0;

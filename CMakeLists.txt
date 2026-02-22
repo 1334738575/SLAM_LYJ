@@ -37,7 +37,6 @@ include(config/PKGPath.cmake)
 
 ###############################find_package####################################
 
-# option(USE_OLD_SHADER "use old shader" OFF)
 set(BINDIRECTORIES)
 set(Boost_DIR "D:/SLAM_LYJ/dependencies/Boost/lib/cmake/Boost-1.86.0")
 find_package(Boost  REQUIRED COMPONENTS serialization)
@@ -49,8 +48,6 @@ endif()
 list(APPEND BINDIRECTORIES "${OpenCV_INSTALL_PATH}/bin;")
 set(Eigen3_DIR "D:/SLAM_LYJ/dependencies/Eigen/share/eigen3/cmake")
 find_package(Eigen3)
-# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-# find_package(DBow2)
 set(Ceres_DIR "D:/SLAM_LYJ/dependencies/Ceres/lib/cmake/Ceres")
 find_package(Ceres REQUIRED)
 list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/Ceres/bin;D:/SLAM_LYJ/dependencies/Glog/bin;D:/SLAM_LYJ/dependencies/Gflags/Lib;")
@@ -71,13 +68,6 @@ list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/lz4/bin\;")
 list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/libjpeg/bin\;")
 set(glm_DIR "D:/SLAM_LYJ/dependencies/Glm099/glm/cmake/glm")
 find_package(glm)
-# #openmp
-# find_package(OpenMP REQUIRED) 
-# # if(${OpenMP_CXX_FOUND})
-# #     add_compile_options(${OpenMP_CXX_FLAGS})
-# #     message("find OpenMP: ${OpenMP_CXX_LIBRARIES}")
-# #     message("find OpenMP: ${OpenMP_CXX_FLAGS}")
-# # endif()
 list(APPEND BINDIRECTORIES "D:/packages/DBoW3/bin;")
 
 # #pcl
@@ -124,7 +114,6 @@ add_subdirectory(ImageProcess_LYJ)
 set(${PROJECT_NAME}_LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Output)
 add_executable(${PROJECT_NAME} example/main.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
-${DBow2_INCLUDE_DIR}
 ${OpenCV_INCLUDE_DIRS} 
 ${Boost_INCLUDE_DIRS}
 ${EIGEN3_INCLUDE_DIRS}
@@ -134,7 +123,6 @@ ${GLM_INCLUDE_DIRS}
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC
 ${Boost_LIBRARIES}
-${DBow2_LIBRARIY}
 ${OpenCV_LIBS} 
 ${VULKAN_LIBRARIES}
 ${GLFW_LIBRARIES}
