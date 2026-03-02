@@ -1,0 +1,11 @@
+{
+    "SLAM_LYJ_COMMON": true,
+    "SLAM_LYJ_vulkan": true,
+    "SLAM_LYJ_CUDA": true,
+    "SLAM_LYJ_qt": true,
+    "TextureFusion_LYJ": true,
+    "ImageProcess_LYJ": true,
+    "SLAM_LYJ_optimize": true,
+    "SLAM_LYJ_pathplan": true,
+    "SLAM_LYJ_src": true
+}
