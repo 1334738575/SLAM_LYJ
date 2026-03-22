@@ -69,6 +69,7 @@ list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/libjpeg/bin\;")
 set(glm_DIR "D:/SLAM_LYJ/dependencies/Glm099/glm/cmake/glm")
 find_package(glm)
 list(APPEND BINDIRECTORIES "D:/packages/DBoW3/bin;")
+list(APPEND BINDIRECTORIES "D:/SLAM_LYJ/dependencies/sqlite3/bin\;")
 
 # #pcl
 # find_package(PCL)
@@ -115,14 +116,14 @@ set(${PROJECT_NAME}_LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Output)
 add_executable(${PROJECT_NAME} example/main.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
 ${OpenCV_INCLUDE_DIRS} 
-${Boost_INCLUDE_DIRS}
+# ${Boost_INCLUDE_DIRS}
 ${EIGEN3_INCLUDE_DIRS}
 ${VULKAN_INCLUDE_DIRS}
 ${GLFW_INCLUDE_DIRS}
 ${GLM_INCLUDE_DIRS}
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC
-${Boost_LIBRARIES}
+# ${Boost_LIBRARIES}
 ${OpenCV_LIBS} 
 ${VULKAN_LIBRARIES}
 ${GLFW_LIBRARIES}

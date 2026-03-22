@@ -599,126 +599,126 @@ int main2(int argc, char* argv[])
 
         PATH_PLAN_LYJ::releasePathPlanner(handle);
     }
-    if (true)
-    {
-        // data
-        COMMON_LYJ::BaseTriMesh btmVulkan = btm;
-        const auto& vertexs = btmVulkan.getVertexs();
-        const auto& faces = btmVulkan.getFaces();
-        btmVulkan.enableFCenters();
-        btmVulkan.calculateFCenters();
-        const auto& fCenters = btmVulkan.getFCenters();
-        btmVulkan.enableFNormals();
-        btmVulkan.calculateFNormals();
-        const auto& fNormals = btmVulkan.getFNormals();
-        int vn = btmVulkan.getVn();
-        int fn = btmVulkan.getFn();
-        int w = 2048;
-        int h = 2048;
-        std::vector<float> K{ 765.955, 766.549, 1024, 1024 };
-        std::vector<double> Kd{ 765.955, 766.549, 1024, 1024 };
-        Pose3D TcwP;
-        TcwP.getR() << 0.00774473, 0.0383352, 0.999235,
-            -0.0480375, 0.998125, -0.0379202,
-            -0.998815, -0.047707, 0.00957183;
-        TcwP.gett() << -0.0615093,
-            -0.16702,
-            0.011672;
-        COMMON_LYJ::PinholeCamera cam(w, h, Kd);
-        COMMON_LYJ::drawCam("D:/tmp/camVulkan.ply", cam, TcwP.inversed(), 10);
-        Eigen::Matrix<float, 3, 4> T;
-        T.block(0, 0, 3, 3) = TcwP.getR().cast<float>();
-        T.block(0, 3, 3, 1) = TcwP.gett().cast<float>();
+    //if (true)
+    //{
+    //    // data
+    //    COMMON_LYJ::BaseTriMesh btmVulkan = btm;
+    //    const auto& vertexs = btmVulkan.getVertexs();
+    //    const auto& faces = btmVulkan.getFaces();
+    //    btmVulkan.enableFCenters();
+    //    btmVulkan.calculateFCenters();
+    //    const auto& fCenters = btmVulkan.getFCenters();
+    //    btmVulkan.enableFNormals();
+    //    btmVulkan.calculateFNormals();
+    //    const auto& fNormals = btmVulkan.getFNormals();
+    //    int vn = btmVulkan.getVn();
+    //    int fn = btmVulkan.getFn();
+    //    int w = 2048;
+    //    int h = 2048;
+    //    std::vector<float> K{ 765.955, 766.549, 1024, 1024 };
+    //    std::vector<double> Kd{ 765.955, 766.549, 1024, 1024 };
+    //    Pose3D TcwP;
+    //    TcwP.getR() << 0.00774473, 0.0383352, 0.999235,
+    //        -0.0480375, 0.998125, -0.0379202,
+    //        -0.998815, -0.047707, 0.00957183;
+    //    TcwP.gett() << -0.0615093,
+    //        -0.16702,
+    //        0.011672;
+    //    COMMON_LYJ::PinholeCamera cam(w, h, Kd);
+    //    COMMON_LYJ::drawCam("D:/tmp/camVulkan.ply", cam, TcwP.inversed(), 10);
+    //    Eigen::Matrix<float, 3, 4> T;
+    //    T.block(0, 0, 3, 3) = TcwP.getR().cast<float>();
+    //    T.block(0, 3, 3, 1) = TcwP.gett().cast<float>();
 
 
-        LYJ_VK::ProjectorVK projectVK;
-        projectVK.create(vertexs[0].data(), vn, fCenters[0].data(), fNormals[0].data(), faces[0].vId_, fn, K.data(), w, h);
-        std::vector<uint> fIdsOut(w * h, UINT_MAX);
-        std::vector<float> depthsOut(w * h, FLT_MAX);
-        std::vector<char> PValidsOut(vn, 0);
-        std::vector<char> fValidsOut(fn, 0);
-        projectVK.project(T.data(), depthsOut.data(), fIdsOut.data(), PValidsOut.data(), fValidsOut.data(), 0, 30, 0.0, 0.1);
-        COMMON_LYJ::Pose3D Tcw2;
-        COMMON_LYJ::readT34("D:/tmp/texture_data/RT_61.txt", Tcw2);
-        COMMON_LYJ::drawCam("D:/tmp/camVulkan.ply", cam, Tcw2.inversed(), 10);
-        Eigen::Matrix<float, 3, 4> T2;
-        T2.block(0, 0, 3, 3) = Tcw2.getR().cast<float>();
-        T2.block(0, 3, 3, 1) = Tcw2.gett().cast<float>();
-        projectVK.project(T2.data(), depthsOut.data(), fIdsOut.data(), PValidsOut.data(), fValidsOut.data(), 0, 30, 0.0, 0.1);
+    //    LYJ_VK::ProjectorVK projectVK;
+    //    projectVK.create(vertexs[0].data(), vn, fCenters[0].data(), fNormals[0].data(), faces[0].vId_, fn, K.data(), w, h);
+    //    std::vector<uint> fIdsOut(w * h, UINT_MAX);
+    //    std::vector<float> depthsOut(w * h, FLT_MAX);
+    //    std::vector<char> PValidsOut(vn, 0);
+    //    std::vector<char> fValidsOut(fn, 0);
+    //    projectVK.project(T.data(), depthsOut.data(), fIdsOut.data(), PValidsOut.data(), fValidsOut.data(), 0, 30, 0.0, 0.1);
+    //    COMMON_LYJ::Pose3D Tcw2;
+    //    COMMON_LYJ::readT34("D:/tmp/texture_data/RT_61.txt", Tcw2);
+    //    COMMON_LYJ::drawCam("D:/tmp/camVulkan.ply", cam, Tcw2.inversed(), 10);
+    //    Eigen::Matrix<float, 3, 4> T2;
+    //    T2.block(0, 0, 3, 3) = Tcw2.getR().cast<float>();
+    //    T2.block(0, 3, 3, 1) = Tcw2.gett().cast<float>();
+    //    projectVK.project(T2.data(), depthsOut.data(), fIdsOut.data(), PValidsOut.data(), fValidsOut.data(), 0, 30, 0.0, 0.1);
 
-        {
-            std::vector<Eigen::Vector3f> retPs;
-            for (int i = 0; i < vn; ++i)
-            {
-                if (PValidsOut[i] == 0)
-                    continue;
-                retPs.push_back(vertexs[i]);
-            }
-            COMMON_LYJ::BaseTriMesh btmTmp;
-            btmTmp.setVertexs(retPs);
-            COMMON_LYJ::writePLYMesh("D:/tmp/checkV.ply", btmTmp);
-            std::vector<Eigen::Vector3f> retFs;
-            for (int i = 0; i < fn; ++i)
-            {
-                if (fValidsOut[i] == 1)
-                    continue;
-                retFs.push_back(fCenters[i]);
-            }
-            COMMON_LYJ::BaseTriMesh btmTmp2;
-            btmTmp2.setVertexs(retFs);
-            COMMON_LYJ::writePLYMesh("D:/tmp/checkF.ply", btmTmp2);
-        }
-        {
-            std::vector<Eigen::Vector3f> fccc;
-            for (int i = 0; i < h; ++i)
-            {
-                for (int j = 0; j < w; ++j)
-                {
-                    const uint32_t& fid = fIdsOut[i * w + j];
-                    if (fid == UINT_MAX)
-                        continue;
-                    fccc.push_back(fCenters[fid]);
-                }
-            }
-            COMMON_LYJ::BaseTriMesh btmtmp;
-            btmtmp.setVertexs(fccc);
-            COMMON_LYJ::writePLYMesh("D:/tmp/fccc.ply", btmtmp);
-        }
-        {
-            std::vector<Eigen::Vector3f> PcsTmp;
-            Eigen::Vector2d uvTmp;
-            cv::Mat mmmd(h, w, CV_8UC1);
-            for (int i = 0; i < h; ++i)
-            {
-                for (int j = 0; j < w; ++j)
-                {
-                    Eigen::Vector3d Pc;
-                    double dd = depthsOut[i * w + j];
-                    uvTmp(0) = j;
-                    uvTmp(1) = i;
-                    if (dd > 0.0f && dd != FLT_MAX)
-                    {
-                        cam.image2World(uvTmp, dd, Pc);
-                        PcsTmp.push_back(Pc.cast<float>());
-                    }
-                    const float ddd = depthsOut[i * w + j] / 30.0f;
-                    int dddc = ddd * 255 > 255 ? 255 : ddd * 255;
-                    mmmd.at<uchar>(i, j) = (uchar)dddc;
-                }
-            }
-            COMMON_LYJ::BaseTriMesh btmtmp;
-            btmtmp.setVertexs(PcsTmp);
-            COMMON_LYJ::writePLYMesh("D:/tmp/PcsTmp.ply", btmtmp);
-            cv::imwrite("D:/tmp/depth.png", mmmd);
-            cv::imshow("dVK", mmmd);
-            cv::waitKey();
-        }
+    //    {
+    //        std::vector<Eigen::Vector3f> retPs;
+    //        for (int i = 0; i < vn; ++i)
+    //        {
+    //            if (PValidsOut[i] == 0)
+    //                continue;
+    //            retPs.push_back(vertexs[i]);
+    //        }
+    //        COMMON_LYJ::BaseTriMesh btmTmp;
+    //        btmTmp.setVertexs(retPs);
+    //        COMMON_LYJ::writePLYMesh("D:/tmp/checkV.ply", btmTmp);
+    //        std::vector<Eigen::Vector3f> retFs;
+    //        for (int i = 0; i < fn; ++i)
+    //        {
+    //            if (fValidsOut[i] == 1)
+    //                continue;
+    //            retFs.push_back(fCenters[i]);
+    //        }
+    //        COMMON_LYJ::BaseTriMesh btmTmp2;
+    //        btmTmp2.setVertexs(retFs);
+    //        COMMON_LYJ::writePLYMesh("D:/tmp/checkF.ply", btmTmp2);
+    //    }
+    //    {
+    //        std::vector<Eigen::Vector3f> fccc;
+    //        for (int i = 0; i < h; ++i)
+    //        {
+    //            for (int j = 0; j < w; ++j)
+    //            {
+    //                const uint32_t& fid = fIdsOut[i * w + j];
+    //                if (fid == UINT_MAX)
+    //                    continue;
+    //                fccc.push_back(fCenters[fid]);
+    //            }
+    //        }
+    //        COMMON_LYJ::BaseTriMesh btmtmp;
+    //        btmtmp.setVertexs(fccc);
+    //        COMMON_LYJ::writePLYMesh("D:/tmp/fccc.ply", btmtmp);
+    //    }
+    //    {
+    //        std::vector<Eigen::Vector3f> PcsTmp;
+    //        Eigen::Vector2d uvTmp;
+    //        cv::Mat mmmd(h, w, CV_8UC1);
+    //        for (int i = 0; i < h; ++i)
+    //        {
+    //            for (int j = 0; j < w; ++j)
+    //            {
+    //                Eigen::Vector3d Pc;
+    //                double dd = depthsOut[i * w + j];
+    //                uvTmp(0) = j;
+    //                uvTmp(1) = i;
+    //                if (dd > 0.0f && dd != FLT_MAX)
+    //                {
+    //                    cam.image2World(uvTmp, dd, Pc);
+    //                    PcsTmp.push_back(Pc.cast<float>());
+    //                }
+    //                const float ddd = depthsOut[i * w + j] / 30.0f;
+    //                int dddc = ddd * 255 > 255 ? 255 : ddd * 255;
+    //                mmmd.at<uchar>(i, j) = (uchar)dddc;
+    //            }
+    //        }
+    //        COMMON_LYJ::BaseTriMesh btmtmp;
+    //        btmtmp.setVertexs(PcsTmp);
+    //        COMMON_LYJ::writePLYMesh("D:/tmp/PcsTmp.ply", btmtmp);
+    //        cv::imwrite("D:/tmp/depth.png", mmmd);
+    //        cv::imshow("dVK", mmmd);
+    //        cv::waitKey();
+    //    }
 
-        projectVK.release();
+    //    projectVK.release();
 
 
 
-    }
+    //}
     if (false)
     {
         std::vector<double> camd = { 765.955, 766.549, 1024, 1024 };
@@ -847,6 +847,58 @@ void test() {
     return;
 }
 
+void processCompress()
+{
+    std::string homeDir = "D:/data/tex/";
+    std::string imgDir = homeDir + "images/";
+    std::string camPath = homeDir + "cam.txt";
+    std::string TcwDir = homeDir + "Tcws/";
+    std::string meshPath = homeDir + "1.ply";
+
+    COMMON_LYJ::BaseTriMesh btm;
+    COMMON_LYJ::readPLYMesh(meshPath, btm);
+    std::vector<std::string> imgNames = stlplus::folder_files(imgDir);
+    int imgSz = imgNames.size();
+    int stInd = 0;
+    int edInd = imgSz;
+    imgSz = edInd - stInd;
+    std::vector<COMMON_LYJ::CompressedImage> comImgs(imgSz);
+    std::vector<COMMON_LYJ::CompressedImage*> imgs(imgSz);
+    std::vector<COMMON_LYJ::Pose3D> Tcws(imgSz);
+    std::vector<COMMON_LYJ::PinholeCamera> cams(imgSz);
+    cv::Mat imgTmp;
+    COMMON_LYJ::PinholeCamera camTmp;
+    for (int i = stInd; i < edInd; ++i)
+    {
+        std::string imgPath = imgDir + std::to_string(i) + ".jpg";
+        //comImgs[i].readJPG(imgPath);
+        imgTmp = cv::imread(imgPath);
+        cv::pyrDown(imgTmp, imgTmp);
+        comImgs[i-stInd].compressCVMat(imgTmp);
+        imgs[i - stInd] = &comImgs[i - stInd];
+        std::string TcwPath = TcwDir + "rt_" + std::to_string(i) + ".txt";
+        COMMON_LYJ::readT34(TcwPath, Tcws[i - stInd]);
+        COMMON_LYJ::readPinCamera(camPath, cams[i - stInd]);
+        cams[i - stInd].downSample();
+    }
+    SLAM_LYJ_src::ProcessComOption opt;
+    opt.threadNum = -1;
+    opt.readCache = false;
+    opt.vocPath = "D:/data/ORBvoc.txt";
+
+    SLAM_LYJ_src::reconstructVisualWithMeshCom(btm, imgs, Tcws, cams, opt);
+
+    std::string TcwDir2 = homeDir + "Tcws2/";
+    if (stlplus::folder_exists(TcwDir2))
+        stlplus::folder_delete(TcwDir2, true);
+    stlplus::folder_create(TcwDir2);
+    for (int i = stInd; i < edInd; ++i)
+    {
+        std::string TcwPath = TcwDir2 + "rt_" + std::to_string(i) + ".txt";
+        COMMON_LYJ::writeT34(TcwPath, Tcws[i - stInd]);
+    }
+}
+
 int main(int argc, char* argv[]){
     //main2(argc, argv);
     //test();
@@ -887,21 +939,60 @@ int main(int argc, char* argv[]){
     //COMMON_LYJ::testOcTreeAndQuadTree();
     //COMMON_LYJ::testCUDA();
     //return 0;
+    
+    
     //QT_LYJ::debugWindows(argc, argv);
     //return 0;
+    processCompress();
+    QT_LYJ::debugWindows(argc, argv);
+    return 0;
+
+    auto funcGetPoseFileName = [](int _i) -> std::string
+        {
+            return "rt_" + std::to_string(_i) + ".txt";
+        };
+    auto funcGetImageFileName = [](int _i) -> std::string
+        {
+            return std::to_string(_i) + ".jpg";
+        };
     SLAM_LYJ_src::ProcessOption opt;
-    opt.imgDir = "D:/tmp/testImages";
-    opt.priTcwDir = "D:/tmp/testTcws";
-    opt.camFile = "D:/tmp/testCam.txt";
-    opt.vocPath = "D:/tmp/voc.gz";
+    //opt.meshPath = "D:/tmp/res_mesh.ply";
+    //opt.imgDir = "D:/tmp/testImages";
+    //opt.priTcwDir = "D:/tmp/testTcws";
+    //opt.camFile = "D:/tmp/testCam.txt";
+    //opt.vocPath = "D:/tmp/voc.gz";
+    //opt.writeVoc = false;
+    opt.meshPath = "D:/data/tex/1.ply";
+    opt.imgDir = "D:/data/tex/images";
+    opt.funcGetImageFileName = funcGetImageFileName;
+    opt.camFile = "D:/data/tex/cam.txt";
+    opt.priTcwDir = "D:/data/tex/Tcws";
+    opt.funcGetPoseFileName = funcGetPoseFileName;
+    opt.vocPath = "D:/data/ORBvoc.txt";
     opt.writeVoc = false;
+
+    opt.imageExtractOpt.pointExtractMode = 0;
+    opt.imageExtractOpt.usePointFeature = true;
+    opt.imageExtractOpt.useLineFeature = false;
+    opt.imageExtractOpt.useEdgeFeature = false;
+    opt.imageMatchOpt.pointMatchMode = 0;
+    opt.imageMatchOpt.pointMatchCheck = true;
+    opt.imageMatchOpt.usePointMatch = true;
+    opt.imageMatchOpt.squareDThInMesh = 900;// 0.04f;
+    opt.imageMatchOpt.useLineMatch = false;
+    opt.imageMatchOpt.useEdgeMatch = false;
+    opt.imageMatchOpt.usePatchMatch = false;
     opt.imageMatchOpt.bTriangle = false;
-    opt.imageMatchOpt.pointMatchCheck = false;
+
     //opt.readCache = true;
-    opt.threadNum = 1;
-    opt.meshPath = "D:/tmp/res_mesh.ply";
+    opt.threadNum = -1;
+
+    opt.dumpPath = "D:/tmp/processDebug";
+
     //SLAM_LYJ_src::reconstructVisualPoint(opt);
     SLAM_LYJ_src::reconstructVisualWithMesh(opt);
-    QT_LYJ::debugWindows(argc, argv);
+
+    if(true)
+        QT_LYJ::debugWindows(argc, argv);
     return 0;
 }
