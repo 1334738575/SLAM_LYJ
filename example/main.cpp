@@ -852,7 +852,7 @@ void processCompress()
     std::string homeDir = "D:/data/tex/";
     std::string imgDir = homeDir + "images/";
     std::string camPath = homeDir + "cam.txt";
-    std::string TcwDir = homeDir + "Tcws/";
+    std::string TcwDir = homeDir + "Tcws2/";
     std::string meshPath = homeDir + "1.ply";
 
     COMMON_LYJ::BaseTriMesh btm;
@@ -886,9 +886,10 @@ void processCompress()
     opt.readCache = false;
     opt.vocPath = "D:/data/ORBvoc.txt";
 
-    SLAM_LYJ_src::reconstructVisualWithMeshCom(btm, imgs, Tcws, cams, opt);
+    //SLAM_LYJ_src::reconstructVisualWithMeshCom(btm, imgs, Tcws, cams, opt);
+    SLAM_LYJ_src::reconstructVisualWithMeshComAft(btm, imgs, Tcws, cams, opt);
 
-    std::string TcwDir2 = homeDir + "Tcws2/";
+    std::string TcwDir2 = homeDir + "Tcws3/";
     if (stlplus::folder_exists(TcwDir2))
         stlplus::folder_delete(TcwDir2, true);
     stlplus::folder_create(TcwDir2);
