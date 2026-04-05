@@ -1,6 +1,8 @@
 
 cmake_minimum_required(VERSION 3.20)
 project(PY_LYJ)
+
+
 #pybind11
 find_package(pybind11 REQUIRED)
 if(${pybind11_FOUND})

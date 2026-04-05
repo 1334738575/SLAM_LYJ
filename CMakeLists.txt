@@ -109,6 +109,7 @@ add_subdirectory(ImageProcess_LYJ)
 
 # #add pytest
 # add_subdirectory(PY_LYJ)
+add_subdirectory(PY_3DGS)
 
 
 ###############################importlibrary####################################
